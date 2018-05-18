@@ -1,17 +1,17 @@
 import sys
 sys.path.insert(0,'/Users/howard/AdviseMeRW/Login/Login')
-import app as Login
+import login_app as Login
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow,QWidget,QTableWidget,QTableWidgetItem,QPushButton,QPlainTextEdit, QDialog, QComboBox, QCheckBox,QTimeEdit,QSpinBox
-from dialog import Ui_Dialog
+from register_dialog import Ui_Dialog
 from PyQt5.QtCore import pyqtSlot
 from operator import sub
 
 
 
-class Dialog(QDialog):
+class Register_Dialog(QDialog):
     def __init__(self):
-        super(Dialog,self).__init__()
+        super(Register_Dialog,self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         
@@ -55,11 +55,11 @@ class Dialog(QDialog):
             file.write(li.item(i).text())
     
     def goto_login(self):
-        
+        pass
     
 def main():
     app = QApplication(sys.argv)
-    dialog = Dialog()
+    dialog = Register_Dialog()
     dialog.show()
     sys.exit(app.exec_())
 
