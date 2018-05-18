@@ -32,7 +32,9 @@ class Register_Dialog(QDialog):
         self.remove.clicked.connect(self.remove_course)
 
         self.register.clicked.connect(self.on_register)
-    
+        
+        self.logf = Login.Login_Dialog()
+        
     @pyqtSlot()
     def add_course(self):
         course = self.course_to_add.text()
@@ -55,8 +57,9 @@ class Register_Dialog(QDialog):
             file.write(li.item(i).text())
     
     def goto_login(self):
-        pass
-    
+        self.logf.show()
+        self.close()
+        
 def main():
     app = QApplication(sys.argv)
     dialog = Register_Dialog()

@@ -1,9 +1,9 @@
 import sys
 sys.path.insert(0,'/Users/howard/AdviseMeRW/Login/Login')
-from  login_app import Login_Dialog as Login
+import login_app as Login
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow,QWidget,QTableWidget,QTableWidgetItem,QPushButton,QPlainTextEdit, QDialog, QComboBox, QCheckBox,QTimeEdit,QSpinBox
-from dialog import Ui_Dialog
+from register_dialog import Ui_Dialog
 from PyQt5.QtCore import pyqtSlot
 from operator import sub
 
@@ -17,7 +17,7 @@ class Register_Dialog(QDialog):
         
         self.username = self.ui.username_line_edit
         self.password = self.ui.password_line_edit
-#        self.institution = self.ui.institution_line_edit
+        self.institution = self.ui.institution_line_edit
         self.major = self.ui.major_line_edit
 
         self.course_to_add = self.ui.course_line_edit
@@ -32,7 +32,9 @@ class Register_Dialog(QDialog):
         self.remove.clicked.connect(self.remove_course)
 
         self.register.clicked.connect(self.on_register)
-    
+        
+        self.logf = Login.Login_Dialog()
+        
     @pyqtSlot()
     def add_course(self):
         course = self.course_to_add.text()
@@ -55,8 +57,9 @@ class Register_Dialog(QDialog):
             file.write(li.item(i).text())
     
     def goto_login(self):
-        pass
-    
+        logfff = Login.Login_Dialog()
+        #logfff.show()
+        
 def main():
     app = QApplication(sys.argv)
     dialog = Register_Dialog()
