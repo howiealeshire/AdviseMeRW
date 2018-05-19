@@ -27,15 +27,15 @@ class Ui_Dialog
 {
 public:
     QWidget *horizontalLayoutWidget;
-    QHBoxLayout *horizontalLayout;
-    QLabel *label_2;
-    QLineEdit *lineEdit_2;
+    QHBoxLayout *username_horiz_layout;
+    QLabel *username_lbl;
+    QLineEdit *username_line_edit;
     QWidget *horizontalLayoutWidget_2;
-    QHBoxLayout *horizontalLayout_2;
-    QLabel *label;
-    QLineEdit *lineEdit;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
+    QHBoxLayout *password_horiz_layout;
+    QLabel *password_lbl;
+    QLineEdit *password_line_edit;
+    QPushButton *register_btn;
+    QPushButton *sign_in_btn;
 
     void setupUi(QDialog *Dialog)
     {
@@ -45,45 +45,45 @@ public:
         horizontalLayoutWidget = new QWidget(Dialog);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(10, 10, 181, 51));
-        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        label_2 = new QLabel(horizontalLayoutWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
+        username_horiz_layout = new QHBoxLayout(horizontalLayoutWidget);
+        username_horiz_layout->setSpacing(6);
+        username_horiz_layout->setContentsMargins(11, 11, 11, 11);
+        username_horiz_layout->setObjectName(QStringLiteral("username_horiz_layout"));
+        username_horiz_layout->setContentsMargins(0, 0, 0, 0);
+        username_lbl = new QLabel(horizontalLayoutWidget);
+        username_lbl->setObjectName(QStringLiteral("username_lbl"));
 
-        horizontalLayout->addWidget(label_2);
+        username_horiz_layout->addWidget(username_lbl);
 
-        lineEdit_2 = new QLineEdit(horizontalLayoutWidget);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
+        username_line_edit = new QLineEdit(horizontalLayoutWidget);
+        username_line_edit->setObjectName(QStringLiteral("username_line_edit"));
 
-        horizontalLayout->addWidget(lineEdit_2);
+        username_horiz_layout->addWidget(username_line_edit);
 
         horizontalLayoutWidget_2 = new QWidget(Dialog);
         horizontalLayoutWidget_2->setObjectName(QStringLiteral("horizontalLayoutWidget_2"));
         horizontalLayoutWidget_2->setGeometry(QRect(10, 80, 181, 41));
-        horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget_2);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(horizontalLayoutWidget_2);
-        label->setObjectName(QStringLiteral("label"));
+        password_horiz_layout = new QHBoxLayout(horizontalLayoutWidget_2);
+        password_horiz_layout->setSpacing(6);
+        password_horiz_layout->setContentsMargins(11, 11, 11, 11);
+        password_horiz_layout->setObjectName(QStringLiteral("password_horiz_layout"));
+        password_horiz_layout->setContentsMargins(0, 0, 0, 0);
+        password_lbl = new QLabel(horizontalLayoutWidget_2);
+        password_lbl->setObjectName(QStringLiteral("password_lbl"));
 
-        horizontalLayout_2->addWidget(label);
+        password_horiz_layout->addWidget(password_lbl);
 
-        lineEdit = new QLineEdit(horizontalLayoutWidget_2);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        password_line_edit = new QLineEdit(horizontalLayoutWidget_2);
+        password_line_edit->setObjectName(QStringLiteral("password_line_edit"));
 
-        horizontalLayout_2->addWidget(lineEdit);
+        password_horiz_layout->addWidget(password_line_edit);
 
-        pushButton = new QPushButton(Dialog);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(130, 150, 113, 32));
-        pushButton_2 = new QPushButton(Dialog);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(10, 150, 113, 32));
+        register_btn = new QPushButton(Dialog);
+        register_btn->setObjectName(QStringLiteral("register_btn"));
+        register_btn->setGeometry(QRect(130, 150, 113, 32));
+        sign_in_btn = new QPushButton(Dialog);
+        sign_in_btn->setObjectName(QStringLiteral("sign_in_btn"));
+        sign_in_btn->setGeometry(QRect(10, 150, 113, 32));
 
         retranslateUi(Dialog);
 
@@ -93,10 +93,10 @@ public:
     void retranslateUi(QDialog *Dialog)
     {
         Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", nullptr));
-        label_2->setText(QApplication::translate("Dialog", "Username", nullptr));
-        label->setText(QApplication::translate("Dialog", "Password", nullptr));
-        pushButton->setText(QApplication::translate("Dialog", "Register", nullptr));
-        pushButton_2->setText(QApplication::translate("Dialog", "Sign In", nullptr));
+        username_lbl->setText(QApplication::translate("Dialog", "Username", nullptr));
+        password_lbl->setText(QApplication::translate("Dialog", "Password", nullptr));
+        register_btn->setText(QApplication::translate("Dialog", "Register", nullptr));
+        sign_in_btn->setText(QApplication::translate("Dialog", "Sign In", nullptr));
     } // retranslateUi
 
 };

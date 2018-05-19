@@ -1,11 +1,12 @@
 import sys
 sys.path.insert(0,'/Users/howard/AdviseMeRW/Login/Login')
-import login_app as Login
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow,QWidget,QTableWidget,QTableWidgetItem,QPushButton,QPlainTextEdit, QDialog, QComboBox, QCheckBox,QTimeEdit,QSpinBox
 from register_dialog import Ui_Dialog
 from PyQt5.QtCore import pyqtSlot
 from operator import sub
+from passlib.hash import pbkdf2_sha256
+import login_app as Login
 
 
 
@@ -32,7 +33,10 @@ class Register_Dialog(QDialog):
         self.remove.clicked.connect(self.remove_course)
 
         self.register.clicked.connect(self.on_register)
-        
+       
+        self.hash = pbkdf2_sha256.hash(self.password.text())
+
+ 
         self.logf = Login.Login_Dialog()
         
     @pyqtSlot()
@@ -46,15 +50,21 @@ class Register_Dialog(QDialog):
         
     @pyqtSlot()
     def on_register(self):
-        submitted_courses = open('workfile','w')
+        submitted_courses = open('user_input','w')
         self.write_items(self.added_courses,submitted_courses)
         self.goto_login()
         
        
     
     def write_items(self,li,file):
+        file.write(self.username.text() + '\n')
+        file.write(self.hash)
+        file.write('\n')
+        file.write(self.major.text() + '\n')
+        file.write(self.institution.text() + '\n')
+       
         for i in range(li.count()):
-            file.write(li.item(i).text())
+            file.write(li.item(i).text() + '\n')
     
     def goto_login(self):
         self.logf.show()
