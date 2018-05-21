@@ -32,17 +32,21 @@ class Register_Dialog(QDialog):
         self.add.clicked.connect(self.add_course)
         self.remove.clicked.connect(self.remove_course)
 
-        self.register.clicked.connect(self.on_register)
-       
         self.hash = pbkdf2_sha256.hash(self.password.text())
+        
+        self.register.clicked.connect(self.on_register)
+    
+
 
  
-        self.logf = Login.Login_Dialog()
         
+    
+    
     @pyqtSlot()
     def add_course(self):
         course = self.course_to_add.text()
         self.added_courses.addItem(course)
+    
     @pyqtSlot()
     def remove_course(self):
         course = self.added_courses.takeItem(self.added_courses.currentRow())
@@ -51,7 +55,9 @@ class Register_Dialog(QDialog):
     @pyqtSlot()
     def on_register(self):
         submitted_courses = open('user_input','w')
+        
         self.write_items(self.added_courses,submitted_courses)
+        submitted_courses.close()
         self.goto_login()
         
        
@@ -59,14 +65,16 @@ class Register_Dialog(QDialog):
     def write_items(self,li,file):
         file.write(self.username.text() + '\n')
         file.write(self.hash)
-        file.write('\n')
-        file.write(self.major.text() + '\n')
-        file.write(self.institution.text() + '\n')
+        #file.write(self.major.text() + '\n')
+        #file.write(self.institution.text() + '\n')
        
-        for i in range(li.count()):
-            file.write(li.item(i).text() + '\n')
+        
     
+
     def goto_login(self):
+  #      print(self.course_list)
+        self.logf = Login.Login_Dialog()
+
         self.logf.show()
         self.close()
         

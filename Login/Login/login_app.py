@@ -16,7 +16,6 @@ class Login_Dialog(QDialog):
         super(Login_Dialog,self).__init__()
         self.ui = ui_di()
         self.ui.setupUi(self)
-        self.user_input = open('/Users/howard/AdviseMeRW/Register/user_input','r')
         self.username = self.ui.username_line_edit.text()
         self.password = self.ui.password_line_edit.text()
         
@@ -24,10 +23,11 @@ class Login_Dialog(QDialog):
         self.register = self.ui.register_btn
         self.sign_in = self.ui.sign_in_btn
         
+
         self.register.clicked.connect(self.goto_register)
         self.sign_in.clicked.connect(self.goto_root)
         
-        #self.verify()
+        
 
         
         
@@ -42,27 +42,29 @@ class Login_Dialog(QDialog):
 
     @pyqtSlot()
     def goto_root(self):
-        regl = Register.Register_Dialog()
-        self.verify(regl.hash)
+        self.verify()
         
 
 
 
              
-    def verify(self,hash):
-        #self.regx = Register.Register_Dialog()
-    
+    def verify(self):
+     
         password_verified = False
         username_verified = False
-        with self.user_input as u:
+        with open('/Users/howard/AdviseMeRW/Register/user_input') as u:
             for i, line in enumerate(u):
                 if i == 0:
-                    if(self.username == line):
+                    print("line1: " + line)
+                    if(self.username.strip() == line.strip()):
                         username_verified = True
+                        print(username_verified)
                 if i == 1:
-                    password_verified = pbkdf2_sha256.verify(self.password, hash)
-        print(password_verified)
-        print(username_verified)
+                    print("line2: " + line)
+                    password_verified = pbkdf2_sha256.verify(self.password.strip(), line.strip())
+                    print(password_verified)
+        
+        
         return password_verified and username_verified
 
 
