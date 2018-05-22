@@ -5,6 +5,9 @@ from ScheduleDialog import Ui_Dialog
 from PyQt5.QtCore import pyqtSlot
 from operator import sub
 
+
+
+
 class Dialog(QDialog):
     def __init__(self):
         super(Dialog,self).__init__()
@@ -15,9 +18,9 @@ class Dialog(QDialog):
         tbl = self.ui.schedule_tbl
         
 
-        self.in_file = open('workfile.txt')
+        self.in_file = open('/Users/howard/AdviseMeRW/Preferences/workfile')
 
-        self.in_file = open('/Users/howard/PreferencesDialog/workfile')
+#        self.in_file = open('/Users/howard/PreferencesDialog/workfile')
 
         self.preference_string = self.in_file.read()
 

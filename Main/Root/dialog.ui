@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="email_advisor_btn">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -26,7 +26,7 @@
     <string>Email Advisor</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="transfer_credit_btn">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -39,7 +39,7 @@
     <string>Tranfer Credit</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="adviseme_btn">
    <property name="geometry">
     <rect>
      <x>130</x>

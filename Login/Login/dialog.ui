@@ -83,6 +83,27 @@
     <string>Sign In</string>
    </property>
   </widget>
+  <widget class="QLabel" name="incorrect_lbl">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>19</x>
+     <y>190</y>
+     <width>201</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Username or password incorrect&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <zorder>incorrect_lbl</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
+  <zorder>horizontalLayoutWidget_2</zorder>
+  <zorder>register_btn</zorder>
+  <zorder>sign_in_btn</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

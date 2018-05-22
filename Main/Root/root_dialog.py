@@ -12,15 +12,15 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(397, 252)
-        self.pushButton = QtWidgets.QPushButton(Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(130, 140, 113, 32))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(Dialog)
-        self.pushButton_2.setGeometry(QtCore.QRect(130, 100, 113, 32))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(Dialog)
-        self.pushButton_3.setGeometry(QtCore.QRect(130, 60, 113, 32))
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.email_advisor_btn = QtWidgets.QPushButton(Dialog)
+        self.email_advisor_btn.setGeometry(QtCore.QRect(130, 140, 113, 32))
+        self.email_advisor_btn.setObjectName("email_advisor_btn")
+        self.transfer_credit_btn = QtWidgets.QPushButton(Dialog)
+        self.transfer_credit_btn.setGeometry(QtCore.QRect(130, 100, 113, 32))
+        self.transfer_credit_btn.setObjectName("transfer_credit_btn")
+        self.adviseme_btn = QtWidgets.QPushButton(Dialog)
+        self.adviseme_btn.setGeometry(QtCore.QRect(130, 60, 113, 32))
+        self.adviseme_btn.setObjectName("adviseme_btn")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -28,7 +28,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.pushButton.setText(_translate("Dialog", "Email Advisor"))
-        self.pushButton_2.setText(_translate("Dialog", "Tranfer Credit"))
-        self.pushButton_3.setText(_translate("Dialog", "AdviseMe"))
+        self.email_advisor_btn.setText(_translate("Dialog", "Email Advisor"))
+        self.transfer_credit_btn.setText(_translate("Dialog", "Tranfer Credit"))
+        self.adviseme_btn.setText(_translate("Dialog", "AdviseMe"))
 
