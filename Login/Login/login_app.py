@@ -12,13 +12,16 @@ from passlib.hash import pbkdf2_sha256
 
 
 class Login_Dialog(QDialog):
-    def __init__(self):
+    def __init__(self,username,password):
         super(Login_Dialog,self).__init__()
         self.ui = ui_di()
         self.ui.setupUi(self)
-        self.username = self.ui.username_line_edit.text()
-        self.password = self.ui.password_line_edit.text()
+        self.username = username 
         
+        self.password = password 
+        self.curr_pass = self.ui.password_line_edit.text()
+        #print('username:' + self.username)
+        #print('password:' + self.password)
    
         self.register = self.ui.register_btn
         self.sign_in = self.ui.sign_in_btn
@@ -47,24 +50,28 @@ class Login_Dialog(QDialog):
 
 
 
-             
+
     def verify(self):
-     
+        self.curr_user = self.ui.username_line_edit.text()
+        self.curr_pass = self.ui.password_line_edit.text()
+
+        print('*******')
+        print(self.username)
+        print(self.curr_user)
+        print(self.password)
+        print(self.curr_pass)
+        print('******')
         password_verified = False
         username_verified = False
-        with open('/Users/howard/AdviseMeRW/Register/user_input') as u:
-            for i, line in enumerate(u):
-                if i == 0:
-                    print("line1: " + line)
-                    if(self.username.strip() == line.strip()):
-                        username_verified = True
-                        print(username_verified)
-                if i == 1:
-                    print("line2: " + line)
-                    password_verified = pbkdf2_sha256.verify(self.password.strip(), line.strip())
-                    print(password_verified)
-        
-        
+        if self.username == self.curr_user:
+            username_verified = True
+            print('here')
+        if pbkdf2_sha256.verify(self.curr_pass, self.password):
+            password_verified = True
+            print('there')
+        print('username_verified: ' + str(username_verified))
+        print('password_verified: ' + str(password_verified))
+        print(str(password_verified and username_verified))
         return password_verified and username_verified
 
 
@@ -74,7 +81,7 @@ class Login_Dialog(QDialog):
 
 def main():
     app = QApplication(sys.argv)
-    dialog = Login_Dialog()
+    dialog = Login_Dialog('a','b')
     dialog.show()
     sys.exit(app.exec_())
 

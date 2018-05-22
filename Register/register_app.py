@@ -7,8 +7,9 @@ from PyQt5.QtCore import pyqtSlot
 from operator import sub
 from passlib.hash import pbkdf2_sha256
 import login_app as Login
+import os
 
-
+'''maybe implement login as an observer, so that way we don't have to pass 'user' and 'password' directly to it'''
 
 class Register_Dialog(QDialog):
     def __init__(self):
@@ -32,7 +33,7 @@ class Register_Dialog(QDialog):
         self.add.clicked.connect(self.add_course)
         self.remove.clicked.connect(self.remove_course)
 
-        self.hash = pbkdf2_sha256.hash(self.password.text())
+        
         
         self.register.clicked.connect(self.on_register)
     
@@ -54,29 +55,25 @@ class Register_Dialog(QDialog):
         
     @pyqtSlot()
     def on_register(self):
-        submitted_courses = open('user_input','w')
         
-        self.write_items(self.added_courses,submitted_courses)
-        submitted_courses.close()
         self.goto_login()
         
        
     
-    def write_items(self,li,file):
-        file.write(self.username.text() + '\n')
-        file.write(self.hash)
-        #file.write(self.major.text() + '\n')
-        #file.write(self.institution.text() + '\n')
-       
+    
+        
+        
         
     
 
     def goto_login(self):
-  #      print(self.course_list)
-        self.logf = Login.Login_Dialog()
+        self.hash = pbkdf2_sha256.hash(self.password.text())
 
-        self.logf.show()
         self.close()
+        self.logf = Login.Login_Dialog(self.username.text(),self.hash)
+        self.logf.show()
+        
+
         
 def main():
     app = QApplication(sys.argv)
