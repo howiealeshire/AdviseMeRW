@@ -6,19 +6,19 @@ from PyQt5.QtWidgets import QApplication, QMainWindow,QWidget,QTableWidget,QTabl
 from dialog import Ui_Dialog
 from PyQt5.QtCore import pyqtSlot
 from operator import sub
+import Preferences
 
 
-
-class Dialog(QDialog):
+class Preferences_Dialog(QDialog):
     def __init__(self):
-        super(Dialog,self).__init__()
+        super(Preferences_Dialog,self).__init__()
         #list that will store all info from preferences
         #to be written to file
         #must use set() function after apply
         
-        info = []
+        #info = []
 
-        self.out_file = open('workfile','w')
+        #self.out_file = open('workfile','w')
 
         
         
@@ -45,16 +45,12 @@ class Dialog(QDialog):
     
     @pyqtSlot()
     def accept(self):
-        self.sched = Schedule.Dialog()
+        self.sched = Schedule.Schedule_Dialog()
         self.close()
         self.sched.show()
         
     @pyqtSlot()
     def apply_changes(self):
-        
-        print(self.get_all_options())
-   
-    def get_all_options(self):
         loc = self.get_location()
         cat = self.get_category()
         prof = self.get_professor()
@@ -66,24 +62,12 @@ class Dialog(QDialog):
         num_courses = self.get_num_course_interval()
 
         
-        info_pre = (loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
+        p = Preferences.main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
+        print(p)
         #go to beginning of file
-        self.out_file.seek(0)
-        #delete contents
-        self.out_file.truncate()
-        #finally, write new tuple to file
- #       self.out_file.write(str(info_pre))
-        
-        for x in info_pre:
-            y = str(x)
-            z = y.strip('(')
-            q = z.strip(')')
-            self.out_file.write(str(q) + ";")
-            
-
-        
-        return info_pre
-        
+       
+        #self.out_file.seek(0)
+    
     def get_time_available(self):
         return tuple(map(sub,self.get_time_to(), self.get_time_from()))
     def get_time_from(self):
@@ -99,10 +83,10 @@ class Dialog(QDialog):
     def get_category(self):
        # category = self.ui.category_grpbox.findChild(QComboBox,"category_comb")
        # category_text = str(category.currentText())
-        return (self.get_cwtext(self.ui.category_grpbox,QComboBox,"category_comb"),)
+        return self.get_cwtext(self.ui.category_grpbox,QComboBox,"category_comb")
 
     def get_location(self):
-        return (self.get_cwtext(self.ui.location_grpbox,QComboBox,"location_comb"),)
+        return self.get_cwtext(self.ui.location_grpbox,QComboBox,"location_comb")
         
     
     def get_days(self):
@@ -138,13 +122,11 @@ class Dialog(QDialog):
         monday.repaint()
         
     def get_subject(self):
-        return (self.get_cwtext(self.ui.subject_grpbox,QComboBox,"subject_comb"),)
+        return self.get_cwtext(self.ui.subject_grpbox,QComboBox,"subject_comb")
 
     def get_num_course_interval(self):
-#        min_course_w = self.get_child_widget(self.ui.min_courses_grpbox,QSpinBox,"min_coursees_spin").value()
         min_course_w = self.ui.min_courses_grpbox.findChild(QSpinBox,"min_courses_spin")
         min_num_course = min_course_w.value()
-#        max_course_w = self.get_child_widget(self.ui.max_courses_grpbox, QSpinBox, "max_courses_spin").value()
         max_course_w = self.ui.max_courses_grpbox.findChild(QSpinBox,"max_courses_spin")
         max_num_course = max_course_w.value()
         return (min_num_course,max_num_course)
@@ -162,8 +144,7 @@ class Dialog(QDialog):
         return child_is_checked
 
     def get_professor(self):
-        #comma after makes it a tuple
-        return (self.get_cwtext(self.ui.professor_grpbox,QComboBox,"professor_comb"),)
+        return self.get_cwtext(self.ui.professor_grpbox,QComboBox,"professor_comb")
 
     def get_cwtext(self,parent,child_widget_type,child_name):
         child = parent.findChild(child_widget_type,child_name)
@@ -173,7 +154,7 @@ class Dialog(QDialog):
 
 def main():
     app = QApplication(sys.argv)
-    dialog = Dialog()
+    dialog = Preferences_Dialog()
     dialog.show()
     sys.exit(app.exec_())
 

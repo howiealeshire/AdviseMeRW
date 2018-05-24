@@ -1,4 +1,6 @@
 import sys
+sys.path.insert(0,'/Users/howard/AdviseMeRW/Preferences')
+import PreferencesApp as Preferences
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow,QWidget,QTableWidget,QTableWidgetItem,QPushButton,QPlainTextEdit, QDialog, QComboBox, QCheckBox,QTimeEdit
 from ScheduleDialog import Ui_Dialog
@@ -8,43 +10,14 @@ from operator import sub
 
 
 
-class Dialog(QDialog):
+class Schedule_Dialog(QDialog):
     def __init__(self):
-        super(Dialog,self).__init__()
+        super(Schedule_Dialog,self).__init__()
         
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
 
         tbl = self.ui.schedule_tbl
-        
-
-        self.in_file = open('/Users/howard/AdviseMeRW/Preferences/workfile')
-
-#        self.in_file = open('/Users/howard/PreferencesDialog/workfile')
-
-        self.preference_string = self.in_file.read()
-
- #       self.preference_string = self.preference_string.strip('(')
-#        self.preference_string = self.preference_string.strip(')')
-        self.preference_string = self.preference_string.split(sep=';')
-
-        self.preference_string = list(filter(None, self.preference_string)) # fastest
-
-        self.emp = []
-        for x in self.preference_string:
-            y = x.split(sep=',')
-            z = list(filter(None,y))
-            self.emp.append(z)
-
-           
-        
-        
-
-
-            
-        
-                
-            
         
  #       self.preferences = (self.preference_string,)
         
@@ -64,7 +37,10 @@ class Dialog(QDialog):
 
     @pyqtSlot()
     def gt_prefs(self):
-        pass
+        self.pref = Preferences.Preferences_Dialog()
+        self.close()
+        self.pref.show()
+
         
    
     @pyqtSlot()
@@ -86,7 +62,7 @@ class Dialog(QDialog):
 
 def main():
     app = QApplication(sys.argv)
-    dialog = Dialog()
+    dialog = Schedule_Dialog()
     dialog.show()
     print(dialog.preference_string)
     print('\n')

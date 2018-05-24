@@ -22,8 +22,7 @@ class Login_Dialog(QDialog):
         
         self.password = password 
         self.curr_pass = self.ui.password_line_edit.text()
-        #print('username:' + self.username)
-        #print('password:' + self.password)
+       
    
         self.register = self.ui.register_btn
         self.sign_in = self.ui.sign_in_btn
