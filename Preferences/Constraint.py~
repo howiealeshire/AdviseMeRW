@@ -1,0 +1,10 @@
+from constraint import *
+from collections import deque
+import Preferences
+
+
+prefs = Preferences.main()
+
+#necessary declaration for constraints lib
+p = Problem()
+

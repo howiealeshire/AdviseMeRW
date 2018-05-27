@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow,QWidget,QTableWidget,QTabl
 from dialog import Ui_Dialog
 from PyQt5.QtCore import pyqtSlot
 from operator import sub
-import Preferences
+import constraints
 
 
 class Preferences_Dialog(QDialog):
@@ -62,7 +62,7 @@ class Preferences_Dialog(QDialog):
         num_courses = self.get_num_course_interval()
 
         
-        p = Preferences.main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
+        p = constraints.main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
         print(p)
         #go to beginning of file
        

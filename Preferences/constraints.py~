@@ -59,12 +59,6 @@ problem.addConstraint(lambda day,time,num_course,professor,subject,location:
 
 
 def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses):
-
-      
-
-
-
-
    print('location: ' + loc)
    print('categories: ' + cat)
    print('profs: ' + prof)
@@ -77,54 +71,20 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
    min_courses = num_courses[0]
    max_courses = num_courses[1]
-   
-
-
-
 
    #turn time into fractional representation
-   max_time = int((time_to[0] + (.01 * time_to[1])) * 100)
-   min_time = int((time_from[0] + (.01 * time_from[1])) * 100)
+   max_time = time_to[0] + (.01 * time_to[1])
+   min_time = time_from[0] + (.01 * time_from[1])
 
    print(max_time)
    print(min_time)
-   problem = Problem()
-   week_days = ['m','t','w','r','f']
-   possible_days = []
-   # might refractor this section, putting it into the PreferencesApp.py module,
-   # that way this doesn't have to do all the parsing, cleaner and whatnot 
-   #if days[0] == True:
-   #   problem.addVariable("all_days",week_days)
-   #else:
-   if days[1] == True:
-      possible_days += 'm'
-   if days[2] == True:
-      possible_days += 't'
-   if days[3] == True:
-      possible_days += 'w'
-   if days[4] == True:
-      possible_days += 'r'
-   if days[5] == True:
-      possible_days += 'f'
-   
-   if possible_days == []:
-      #this try except is so it can vatch the duplicate variable exception. May check the constraint library and see if it has a function for this
-      try:
-         problem.addVariable("all_days",week_days)
-      except ValueError:
-         possible_days = week_days
-         problem.addVariable("all_days",week_days)
-   
-      
+
+
+
+
    problem = Problem()
 
-   if possible_days == []:
-      try:
-         problem.addVariable("day", possible_days)
-      except ValueError:
-         possible_days = week_days
-         problem.addVariable("day",possible_days)
-
+   problem.addVariable("day", days)
    problem.addVariable("time", time_to)
    problem.addVariable("num_course",num_courses)
    problem.addVariable("location",loc)
@@ -132,23 +92,6 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    problem.addVariable("category",cat)
    problem.addVariable("subject",subjects)
    
-   problem.addConstraint(lambda day, time, num_course, professor, subject, location, category:
-                            day in possible_days
-                            and time <= max_time
-                            and time >= min_time
-                            and num_courses[1] <= max_courses
-                            and num_courses[0] >= min_courses
-                            and professor in prof
-                            and subject in subjects
-                            and location in loc
-                         ,
-                         ("day","time","num_course","professor","subject","location","category"))
-                         
-                         
-   
-   print(problem.getSolutions())
-
-
 
 
     
