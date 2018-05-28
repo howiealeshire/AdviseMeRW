@@ -60,9 +60,9 @@ problem.addConstraint(lambda day,time,num_course,professor,subject,location:
 
 def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses):
 
-   print('location: ' + loc)
-   print('categories: ' + cat)
-   print('profs: ' + prof)
+   print('location: ' + str(loc))
+   print('categories: ' + str(cat))
+   print('profs: ' + str(prof))
    print('days: ' + str(days))
    print('time_to: '  +  str(time_to))
    print('time_from: ' + str(time_from))
@@ -135,24 +135,25 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    problem.addVariable("subject",subjects)
 
    
+   print(subjects)
 
-   problem.addConstraint(lambda day, time_prime, subject, location:
+   problem.addConstraint(lambda day, time_prime, professor,subject, location:
                             day in possible_days
                             and time_from <= time_prime
                             and time_to >= time_prime
                            # and num_courses[1] <= max_courses
                           #  and num_courses[0] >= min_courses
-                         #   and professor in prof
+                            and "hello" not in professor
                             and subject in subjects
                             and location in loc
                          ,
-                         ("day","time_prime","subject","location"))
+                         ("day","time_prime","professor","subject","location"))
                          
 
    p_iter = problem.getSolutionIter()
    
    i = 0
-   while i <= 5000:
+   while i <= 1:
       print(next(p_iter))
       i += 1
    #print(next(p_iter))

@@ -83,10 +83,14 @@ class Preferences_Dialog(QDialog):
     def get_category(self):
        # category = self.ui.category_grpbox.findChild(QComboBox,"category_comb")
        # category_text = str(category.currentText())
-        return self.get_cwtext(self.ui.category_grpbox,QComboBox,"category_comb")
+        cat_list = []
+        cat_list.append(self.get_cwtext(self.ui.category_grpbox,QComboBox,"category_comb"))
+        return cat_list
 
     def get_location(self):
-        return self.get_cwtext(self.ui.location_grpbox,QComboBox,"location_comb")
+        loc_list = []
+        loc_list.append(self.get_cwtext(self.ui.location_grpbox,QComboBox,"location_comb"))
+        return loc_list
         
     
     def get_days(self):
@@ -122,7 +126,9 @@ class Preferences_Dialog(QDialog):
         monday.repaint()
         
     def get_subject(self):
-        return self.get_cwtext(self.ui.subject_grpbox,QComboBox,"subject_comb")
+        subject_list = []
+        subject_list.append(self.get_cwtext(self.ui.subject_grpbox,QComboBox,"subject_comb"))
+        return subject_list
 
     def get_num_course_interval(self):
         min_course_w = self.ui.min_courses_grpbox.findChild(QSpinBox,"min_courses_spin")
@@ -144,7 +150,9 @@ class Preferences_Dialog(QDialog):
         return child_is_checked
 
     def get_professor(self):
-        return self.get_cwtext(self.ui.professor_grpbox,QComboBox,"professor_comb")
+        prof_list = []
+        prof_list.append(self.get_cwtext(self.ui.professor_grpbox,QComboBox,"professor_comb"))
+        return prof_list
 
     def get_cwtext(self,parent,child_widget_type,child_name):
         child = parent.findChild(child_widget_type,child_name)
