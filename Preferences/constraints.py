@@ -84,6 +84,7 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    max_time = 2459
    min_time = 0
    time_range = list(range(min_time,max_time))
+   
    problem = Problem()
    week_days = ['m','t','w','r','f']
    possible_days = []
@@ -116,7 +117,7 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    
    '''
 
-         
+   
 
    try:
       problem.addVariable("day", possible_days)
@@ -125,8 +126,8 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
       problem.addVariable("day",possible_days)
       
 
-   
-#   problem.addVariable("time", times)
+
+   problem.addVariable("time_prime", time_range)
    problem.addVariable("num_course",num_courses)
    problem.addVariable("location",loc)
    problem.addVariable("professor",prof)
@@ -135,23 +136,29 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
    
 
-   problem.addConstraint(lambda day, num_course, professor, subject, location, category:
+   problem.addConstraint(lambda day, time_prime, subject, location:
                             day in possible_days
-                            #and time in time_range
-                            and num_courses[1] <= max_courses
-                            and num_courses[0] >= min_courses
-                            and professor in prof
+                            and time_from <= time_prime
+                            and time_to >= time_prime
+                           # and num_courses[1] <= max_courses
+                          #  and num_courses[0] >= min_courses
+                         #   and professor in prof
                             and subject in subjects
                             and location in loc
                          ,
-                         ("day","num_course","professor","subject","location","category"))
+                         ("day","time_prime","subject","location"))
                          
 
    p_iter = problem.getSolutionIter()
    
-   
-   print(next(p_iter))
-
+   i = 0
+   while i <= 5000:
+      print(next(p_iter))
+      i += 1
+   #print(next(p_iter))
+   #print(next(p_iter))
+   #print(next(p_iter)
+   #print(problem.getSolutions())
 
 
 
