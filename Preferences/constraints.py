@@ -73,7 +73,7 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    min_courses = num_courses[0]
    max_courses = num_courses[1]
    
-
+   course_range = list(range(min_courses,max_courses))
 
 
 
@@ -81,7 +81,7 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    time_to = int((time_to[0] + (.01 * time_to[1])) * 100)
    time_from = int((time_from[0] + (.01 * time_from[1])) * 100)
 
-   max_time = 2459
+   max_time = 2359
    min_time = 0
    time_range = list(range(min_time,max_time))
    
@@ -128,7 +128,7 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
 
    problem.addVariable("time_prime", time_range)
-   problem.addVariable("num_course",num_courses)
+   problem.addVariable("num_courses",course_range)
    problem.addVariable("location",loc)
    problem.addVariable("professor",prof)
    problem.addVariable("category",cat)
@@ -137,17 +137,20 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    
    print(subjects)
 
-   problem.addConstraint(lambda day, time_prime, professor,subject, location:
+   #perhaps something should be done about the ValueError that occurs when the range of courses is between 0 and 0
+   #try except later, perhaps
+   
+   problem.addConstraint(lambda day, time_prime,num_courses, professor,subject, location:
                             day in possible_days
                             and time_from <= time_prime
                             and time_to >= time_prime
-                           # and num_courses[1] <= max_courses
-                          #  and num_courses[0] >= min_courses
-                            and "hello" not in professor
+                            and min_courses <= num_courses
+                            and max_courses >= num_courses
+                            and "hello" not in professor   #change this by having default list of possible professors, and checking if their professor is in there
                             and subject in subjects
                             and location in loc
                          ,
-                         ("day","time_prime","professor","subject","location"))
+                         ("day","time_prime","num_courses","professor","subject","location"))
                          
 
    p_iter = problem.getSolutionIter()
