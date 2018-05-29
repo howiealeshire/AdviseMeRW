@@ -117,6 +117,9 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    
    '''
 
+
+   list_profs = ["Dr. Howie", "Dr. Aleshire", "Dr. Howard"]
+
    
 
    try:
@@ -130,11 +133,12 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    problem.addVariable("time_prime", time_range)
    problem.addVariable("num_courses",course_range)
    problem.addVariable("location",loc)
-   problem.addVariable("professor",prof)
+   problem.addVariable("professor",list_profs)
    problem.addVariable("category",cat)
    problem.addVariable("subject",subjects)
 
-   
+   prof_prime = "Dr. Howie"
+
    print(subjects)
 
    #perhaps something should be done about the ValueError that occurs when the range of courses is between 0 and 0
@@ -146,7 +150,7 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
                             and time_to >= time_prime
                             and min_courses <= num_courses
                             and max_courses >= num_courses
-                            and "hello" not in professor   #change this by having default list of possible professors, and checking if their professor is in there
+                            and prof_prime in professor  #change this by having default list of possible professors, and checking if their professor is in there
                             and subject in subjects
                             and location in loc
                          ,
