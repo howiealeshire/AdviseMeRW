@@ -132,36 +132,65 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
    problem.addVariable("time_prime", time_range)
    problem.addVariable("num_courses",course_range)
+   
+   loc = ["Computer Science", "Mathematics"]
+
    problem.addVariable("location",loc)
+   
+
+   
    problem.addVariable("professor",list_profs)
+   
+   
+   cat = ["WI","GLT","SI"]
+
    problem.addVariable("category",cat)
+
+   subjects = ["Computer Science", "Mathematics"] 
+
+
    problem.addVariable("subject",subjects)
 
+
+   
+   
    prof_prime = ["Dr. Howie","Dr. Aleshire"]
+   subj_prime = ["Mathematics"]
+   cat_prime = ["WI","SI"]
+   loc_prime = ["Computer Science"]
+   
+   
+
+
 
    print(subjects)
 
    #perhaps something should be done about the ValueError that occurs when the range of courses is between 0 and 0
    #try except later, perhaps
    i = 0
-   while i < 1:
-      problem.addConstraint(lambda day, time_prime,num_courses, professor,subject, location:
+   len_prof = len(prof_prime)
+   len_subj = len(subj_prime)
+   len_cat = len(cat_prime)
+   len_loc = len(loc_prime)
+
+
+   problem.addConstraint(lambda day, time_prime,num_courses:
                                day in possible_days
                                and time_from <= time_prime
                                and time_to >= time_prime
                                and min_courses <= num_courses
                                and max_courses >= num_courses
-                               and prof_prime[i] in professor  #change this by having default list of possible professors, and checking if their professor is in there
-                               and subject in subjects
-                               and location in loc
-                            ,
-                            ("day","time_prime","num_courses","professor","subject","location"))
-      i += 1
+                             ,
+                            ("day","time_prime","num_courses"))
+
+
+
+
 
    p_iter = problem.getSolutionIter()
    
    i = 0
-   while i <= 1:
+   while i <= 40:
       print(next(p_iter))
       i += 1
    #print(next(p_iter))
