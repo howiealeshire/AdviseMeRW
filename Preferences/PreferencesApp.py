@@ -30,9 +30,16 @@ class Preferences_Dialog(QDialog):
         self.cancel_button = self.buttons[1]
         self.ok_button = self.buttons[0]
         
+        self.remove_cat_btn = self.ui.remove_cat_btn
+        self.remove_loc_btn = self.ui.remove_loc_btn
+        self.remove_prof_btn = self.ui.remove_prof_btn
+        self.remove_subj_btn = self.ui.remove_sub_btn
+
         self.ok_button.clicked.connect(self.accept)
         self.cancel_button.clicked.connect(self.reject)
         self.apply_button.clicked.connect(self.apply_changes)
+
+        
 
         self.all_chk = self.get_child_widget(self.ui.days_available_grpbox,QCheckBox,"all_days_chk")
         self.all_chk.clicked.connect(self.check_all_days)
@@ -45,6 +52,15 @@ class Preferences_Dialog(QDialog):
         self.prof_list = self.ui.prof_list
         self.subj_list = self.ui.sub_list 
     
+        self.remove_cat_btn.clicked.connect(lambda: self.remove_item(self.cat_list))
+        self.remove_loc_btn.clicked.connect(lambda: self.remove_item(self.loc_list))
+        self.remove_prof_btn.clicked.connect(lambda: self.remove_item(self.prof_list))
+        self.remove_subj_btn.clicked.connect(lambda: self.remove_item(self.subj_list))
+
+
+
+
+
     
     @pyqtSlot()
     def apply_changes(self):
@@ -58,12 +74,19 @@ class Preferences_Dialog(QDialog):
         professor = self.get_professor()
         subject = self.get_subject()
         
-        self.cat_list.addItem(category)
-        self.loc_list.addItem(location)
-        self.prof_list.addItem(professor)
-        self.subj_list.addItem(subject)
+        if category not in self.get_all_from_list(self.cat_list):
+            self.cat_list.addItem(category)
+        if location not in self.get_all_from_list(self.loc_list):
+            self.loc_list.addItem(location)
+        if professor not in self.get_all_from_list(self.prof_list):
+            self.prof_list.addItem(professor)
+        if subject not in self.get_all_from_list(self.subj_list):
+            self.subj_list.addItem(subject)
         
-        
+    @pyqtSlot()
+    def remove_item(self,input_list):
+        item = input_list.takeItem(input_list.currentRow())
+        item = None
 
 
     @pyqtSlot()
@@ -99,6 +122,9 @@ class Preferences_Dialog(QDialog):
         return list_items
 
     
+        
+
+
     def get_time_available(self):
         return tuple(map(sub,self.get_time_to(), self.get_time_from()))
     def get_time_from(self):

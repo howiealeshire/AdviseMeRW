@@ -131,25 +131,31 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
 
    problem.addVariable("time_prime", time_range)
-   problem.addVariable("num_courses",course_range)
+   try:
+      problem.addVariable("num_courses",course_range)
+   except ValueError:
+      course_range = list(range(0,8)) #course range is hardcoded for now, will plug field from file later
+      problem.addVariable("num_courses",course_range)
+      
    
    loc_possible = ["Computer Science", "Mathematics"]
 
-   problem.addVariable("location",loc)
+   if loc != []:
+      problem.addVariable("location",loc)
    
-
-   
-   problem.addVariable("professor",list_profs)
+   if prof != []:
+      problem.addVariable("professor",list_profs)
    
    
  #  cat = ["WI","GLT","SI"]
 
-   problem.addVariable("category",cat)
+   if cat != []:
+      problem.addVariable("category",cat)
 
   # subjects = ["Computer Science", "Mathematics"] 
 
-
-   problem.addVariable("subject",subjects)
+   if subjects != []:
+      problem.addVariable("subject",subjects)
 
 
    
@@ -191,8 +197,9 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    
    i = 0
    while i <= 40:
-      print(next(p_iter))
+      print(next(p_iter,None))      
       i += 1
+
    #print(next(p_iter))
    #print(next(p_iter))
    #print(next(p_iter)
