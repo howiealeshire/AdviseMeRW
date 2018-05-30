@@ -95,7 +95,7 @@ class Preferences_Dialog(QDialog):
     def get_all_from_list(self,list_w):
         list_items = []
         for i in range(list_w.count()):
-            list_items.append(list_w.item(i))
+            list_items.append(list_w.item(i).text())
         return list_items
 
     

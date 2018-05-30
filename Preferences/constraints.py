@@ -133,7 +133,7 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    problem.addVariable("time_prime", time_range)
    problem.addVariable("num_courses",course_range)
    
-   loc = ["Computer Science", "Mathematics"]
+   loc_possible = ["Computer Science", "Mathematics"]
 
    problem.addVariable("location",loc)
    
@@ -142,11 +142,11 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    problem.addVariable("professor",list_profs)
    
    
-   cat = ["WI","GLT","SI"]
+ #  cat = ["WI","GLT","SI"]
 
    problem.addVariable("category",cat)
 
-   subjects = ["Computer Science", "Mathematics"] 
+  # subjects = ["Computer Science", "Mathematics"] 
 
 
    problem.addVariable("subject",subjects)
@@ -154,10 +154,10 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
    
    
-   prof_prime = ["Dr. Howie","Dr. Aleshire"]
-   subj_prime = ["Mathematics"]
-   cat_prime = ["WI","SI"]
-   loc_prime = ["Computer Science"]
+   prof_prime = prof 
+   subj_prime = subjects
+   cat_prime = cat
+   loc_prime = loc
    
    
 
