@@ -40,33 +40,64 @@ class Preferences_Dialog(QDialog):
         self.time_from_edit =  self.get_child_widget(self.ui.time_available_grpbox,QTimeEdit,"available_from_time_edit")
         self.time_to_edit =  self.get_child_widget(self.ui.time_available_grpbox,QTimeEdit,"available_to_time_edit")
 
-        
+        self.cat_list = self.ui.cat_list
+        self.loc_list = self.ui.loc_list
+        self.prof_list = self.ui.prof_list
+        self.subj_list = self.ui.sub_list 
     
     
-    @pyqtSlot()
-    def accept(self):
-        self.sched = Schedule.Schedule_Dialog()
-        self.close()
-        self.sched.show()
-        
     @pyqtSlot()
     def apply_changes(self):
-        loc = self.get_location()
-        cat = self.get_category()
-        prof = self.get_professor()
+        #self.sched = Schedule.Schedule_Dialog()
+        #self.close()
+        #self.sched.show()
+        
+        #need to write categories, locations, professors, subjects
+        category = self.get_category()
+        location = self.get_location()
+        professor = self.get_professor()
+        subject = self.get_subject()
+        
+        self.cat_list.addItem(category)
+        self.loc_list.addItem(location)
+        self.prof_list.addItem(professor)
+        self.subj_list.addItem(subject)
+        
+        
+
+
+    @pyqtSlot()
+    def accept(self):
+        #loc = self.get_location()
+        #cat = self.get_category()
+        #prof = self.get_professor()
         days = self.get_days()
+        
+        locs = self.get_all_from_list(self.loc_list)
+        cats = self.get_all_from_list(self.cat_list)
+        profs = self.get_all_from_list(self.prof_list)
+        subjects = self.get_all_from_list(self.subj_list)
+    
         time_to = self.get_time_to()
         time_from = self.get_time_from()
         time_interval = self.get_time_available()
-        subjects = self.get_subject()
+        #subjects = self.get_subject()
         num_courses = self.get_num_course_interval()
 
         
-        p = constraints.main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
+        
+        
+        p = constraints.main(locs,cats,profs,days,time_to,time_from,time_interval,subjects,num_courses)
+
         print(p)
-        #go to beginning of file
-       
-        #self.out_file.seek(0)
+    
+    #method essentially taken from user @delnan from Stack Overflow: https://stackoverflow.com/questions/4629584/pyqt4-how-do-you-iterate-all-items-in-a-qlistwidget    
+    def get_all_from_list(self,list_w):
+        list_items = []
+        for i in range(list_w.count()):
+            list_items.append(list_w.item(i))
+        return list_items
+
     
     def get_time_available(self):
         return tuple(map(sub,self.get_time_to(), self.get_time_from()))
@@ -83,14 +114,14 @@ class Preferences_Dialog(QDialog):
     def get_category(self):
        # category = self.ui.category_grpbox.findChild(QComboBox,"category_comb")
        # category_text = str(category.currentText())
-        cat_list = []
-        cat_list.append(self.get_cwtext(self.ui.category_grpbox,QComboBox,"category_comb"))
-        return cat_list
+        #cat_list = []
+        return self.get_cwtext(self.ui.category_grpbox,QComboBox,"category_comb")
+        #return cat_list
 
     def get_location(self):
-        loc_list = []
-        loc_list.append(self.get_cwtext(self.ui.location_grpbox,QComboBox,"location_comb"))
-        return loc_list
+        #loc_list = []
+        return self.get_cwtext(self.ui.location_grpbox,QComboBox,"location_comb")
+        #return loc_list
         
     
     def get_days(self):
@@ -126,9 +157,9 @@ class Preferences_Dialog(QDialog):
         monday.repaint()
         
     def get_subject(self):
-        subject_list = []
-        subject_list.append(self.get_cwtext(self.ui.subject_grpbox,QComboBox,"subject_comb"))
-        return subject_list
+        #subject_list = []
+        return self.get_cwtext(self.ui.subject_grpbox,QComboBox,"subject_comb")
+        #return subject_list
 
     def get_num_course_interval(self):
         min_course_w = self.ui.min_courses_grpbox.findChild(QSpinBox,"min_courses_spin")
@@ -150,9 +181,9 @@ class Preferences_Dialog(QDialog):
         return child_is_checked
 
     def get_professor(self):
-        prof_list = []
-        prof_list.append(self.get_cwtext(self.ui.professor_grpbox,QComboBox,"professor_comb"))
-        return prof_list
+        #prof_list = []
+        return self.get_cwtext(self.ui.professor_grpbox,QComboBox,"professor_comb")
+        #return prof_list
 
     def get_cwtext(self,parent,child_widget_type,child_name):
         child = parent.findChild(child_widget_type,child_name)
