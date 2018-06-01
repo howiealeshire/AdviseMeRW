@@ -1,63 +1,5 @@
 from constraint import *
 
-
-'''
-days = ['m','t','w','r','f']
-#these are hard-coded for now
-min_courses = int(p.min_courses)
-max_courses = int(p.max_courses)
-max_days = ['m','w','r']            # [1,1,1,1,1] # all days checked
-min_days = ['m','t','w']  # what the user wants
-
-# These are the times the user requested
-hour_time_to = p.time_to[0]
-hour_time_from = p.time_from[0]
-minute_time_to = p.time_to[1]
-minute_time_from = p.time_from[1]
-
-
-max_time = int((str(hour_time_to).strip() + str(minute_time_to).strip()).strip()) #11 pm
-min_time = int((str(hour_time_from).strip() + str(minute_time_from).strip()).strip())  #8 am
-
-print(max_time)
-print(min_time)
-#sg = problem.getSolutions()
-#
-times = list(range(80,2400))
-num_courses = list(range(min_courses,max_courses+1))
-
-categories = p.cat
-locations = p.loc
-subjects = p.subjects
-professors = p.prof
-'''
-
-
-'''
-problem.addConstraint(lambda day,time,num_course,professor,subject,location:
-                      day in max_days
-                      and time <= max_time
-                      and any(x in day for x in min_days)
-                      and time >= min_time
-                      and num_course <= max_courses
-                      and num_course >= min_courses
-                      and professor in professors
-                      and subject in subjects
-                      and location in locations
-                      ,
-                          ("day", "time","num_course","professor","subject","location"))
- 
-
-
-'''
-
-
-
-
-
-
-
-
 def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses):
 
    print('location: ' + str(loc))
@@ -174,10 +116,10 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    #perhaps something should be done about the ValueError that occurs when the range of courses is between 0 and 0
    #try except later, perhaps
    i = 0
-   len_prof = len(prof_prime)
-   len_subj = len(subj_prime)
-   len_cat = len(cat_prime)
-   len_loc = len(loc_prime)
+   len_prof = len(prof)
+   len_subj = len(subj)
+   len_cat = len(cat)
+   len_loc = len(loc)
 
 
    problem.addConstraint(lambda day, time_prime,num_courses:
@@ -194,9 +136,9 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
 
    p_iter = problem.getSolutionIter()
-   
+
    i = 0
-   while i <= 40:
+   while next(p_iter,None) != None:
       print(next(p_iter,None))      
       i += 1
 
