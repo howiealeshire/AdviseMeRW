@@ -64,6 +64,8 @@ def main():
     s = ['CSC250', 'CSC230']
 
     #s = pd.Series(courses_taken)
+
+    #basically, go through, check if the student has the necessary prerequisites. If not, remove the course from the potential offerings.
     
     for i, row in df.iterrows():
         pre_req = str(row['Prerequisites'])
