@@ -10,81 +10,82 @@ import numpy as np
 # https://stackoverflow.com/questions/7588934/deleting-columns-in-a-csv-with-python
 
 #later replace hardcoded with user/admin input file
-df=pd.read_csv('newFile.csv')
 
 
-#print(df)
+def read_courses_taken():
+    courses_taken = open('taken_courses.txt','r')
+    course_list = []
+    for course in courses_taken:
+        course_list.append(course.rstrip().replace(' ',''))
+        
+        print(course)
+    courses_taken.close()
+    return course_list
 
-keep_col = ['CRN','Course','Title','SH','Instructor','Meeting Dates', 'Days','Time','Categories','Seats','Limit','Enroll','Subject','Prerequisites']
 
-crn = df['CRN']
-course = df['Course']
-title = df['Title']
-sh = df['SH']
-instructor = df['Instructor']
-meeting_dates = df['Meeting Dates']
-days = df['Days']
-time = df['Time']
-categories = df['Categories']
-seats = df['Seats']
-limit = df['Limit']
-enroll = df['Enroll']
-subject = df['Subject']
-prerequisites = df['Prerequisites']
 
-categories = df['Categories']
 
-crn = df['CRN']
-course = df['Course']
-title = df['Title']
-sh = df['SH']
-instructor = df['Instructor']
-meeting_dates = df['Meeting Dates']
-days = df['Days']
-time = df['Time']
-categories = df['Categories']
-seats = df['Seats']
-limit = df['Limit']
-enroll = df['Enroll']
-subject = df['Subject']
-prerequisites = df['Prerequisites']
 
-categories = df['Categories']
-
+#when ready, main will take argument 's', which will be the courses the user has already taken. Considering calling it form
 def main():
+    pre_reqs = read_courses_taken()
+    for p in pre_reqs:
+        print(p)
     df=pd.read_csv('newFile.csv')
-
-
+    
+   # print(df)
     #print(df)
 
     keep_col = ['CRN','Course','Title','SH','Instructor','Meeting Dates', 'Days','Time','Categories','Seats','Limit','Enroll','Subject','Prerequisites']
 
 
-    nan= float('nan')
-    s = ['CSC250', 'CSC230']
+    nan = float('nan')
 
+    
+        
+    print("*****")
     #s = pd.Series(courses_taken)
 
-    #basically, go through, check if the student has the necessary prerequisites. If not, remove the course from the potential offerings.
-    
+    #basically, go through, check if the student has the necessary prerequisites. If not, remove the course from the potential offerings
+    dq = []
     for i, row in df.iterrows():
+        flag = False
         pre_req = str(row['Prerequisites'])
-
+        
         pre_req = pre_req.strip('[')
         pre_req = pre_req.strip(']')
+        pre_req = pre_req.replace('\'','')
+        pre_req = pre_req.replace(' ','')
+
         pr = pre_req.split(',')
         for x in pr:
-            if x not in s and pd.isnull(x) == False:
-                df.drop(df.index[i])
+            if x not in pre_reqs and pd.notnull(x) == True:
+               # print(x)
+                flag = True
+        if flag == True:
+            df.drop(df.index[i],inplace=True)
 
+    
 
     print(df)
-        
+    #main (or perhaps another method) will return a list of dictionaries. Each dictionary will be a course object. Maybe will transform into it's own object?
+
+
+
+
+
+
+
+
+    
         
             
             
 if __name__ == "__main__":
     main()
+
+
+
 
 
 #new_df = df[keep_col]

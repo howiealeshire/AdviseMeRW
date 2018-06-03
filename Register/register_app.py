@@ -40,7 +40,13 @@ class Register_Dialog(QDialog):
 
 
  
-        
+    
+
+    def get_all_from_list(self,list_w):
+        list_items = []
+        for i in range(list_w.count()):
+            list_items.append(list_w.item(i).text())
+        return list_items
     
     
     @pyqtSlot()
@@ -61,18 +67,33 @@ class Register_Dialog(QDialog):
        
     
     
-        
-        
+    
         
     
 
     def goto_login(self):
+        file = open('../../Recommendations/Recommendations/taken_courses.txt', 'w')
+        
+        courses = self.get_all_from_list(self.added_courses)
+        for c in courses:
+            file.write(c  +  '\n')
+        file.close()
+        
         self.hash = pbkdf2_sha256.hash(self.password.text())
-
+        
         self.close()
         self.logf = Login.Login_Dialog(self.username.text(),self.hash)
         self.logf.show()
         
+
+
+        
+
+
+
+
+
+
 
         
 def main():
