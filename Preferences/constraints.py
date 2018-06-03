@@ -1,4 +1,7 @@
+import sys
 from constraint import *
+sys.path.insert(0, '/Users/howard/AdviseMeRW/Recommendations/Recommendations')
+import parseCSV
 
 def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses):
 
@@ -115,11 +118,12 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
    #perhaps something should be done about the ValueError that occurs when the range of courses is between 0 and 0
    #try except later, perhaps
-   i = 0
-   len_prof = len(prof)
-   len_subj = len(subj)
-   len_cat = len(cat)
-   len_loc = len(loc)
+
+ #  i = 0
+#   len_prof = len(prof)
+#   len_subj = len(subj)
+#   len_cat = len(cat)
+#   len_loc = len(loc)
 
 
    problem.addConstraint(lambda day, time_prime,num_courses:
@@ -134,20 +138,21 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
 
 
+   
+   ppp = problem.getSolutions()
+   parseCSV.main(ppp)
 
-   p_iter = problem.getSolutionIter()
-
-   i = 0
-   while next(p_iter,None) != None:
-      print(next(p_iter,None))      
-      i += 1
+   
+   
+   #while next(p_iter,None) != None:
+#      print(type(next(p_iter,None)))      
+#      i += 1
 
    #print(next(p_iter))
    #print(next(p_iter))
    #print(next(p_iter)
    #print(problem.getSolutions())
-
-
+   
 
     
 if __name__ == "__main__": main()

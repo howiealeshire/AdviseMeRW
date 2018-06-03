@@ -1,3 +1,4 @@
+#an idea i have is to either populate a new pandas dataframe incrementally. or, if that doesn't work, a list of dictionaries instead
 import pandas as pd
 import math
 import numpy as np
@@ -13,7 +14,7 @@ import numpy as np
 
 
 def read_courses_taken():
-    courses_taken = open('taken_courses.txt','r')
+    courses_taken = open('/Users/howard/AdviseMeRW/Recommendations/Recommendations/taken_courses.txt','r')
     course_list = []
     for course in courses_taken:
         course_list.append(course.rstrip().replace(' ',''))
@@ -27,14 +28,13 @@ def read_courses_taken():
 
 
 #when ready, main will take argument 's', which will be the courses the user has already taken. Considering calling it form
-def main():
+def main(preferences):
     pre_reqs = read_courses_taken()
     for p in pre_reqs:
         print(p)
-    df=pd.read_csv('newFile.csv')
+    df=pd.read_csv('/Users/howard/AdviseMeRW/Recommendations/Recommendations/newFile.csv')
+    df_dict = df.to_dict('records')
     
-   # print(df)
-    #print(df)
 
     keep_col = ['CRN','Course','Title','SH','Instructor','Meeting Dates', 'Days','Time','Categories','Seats','Limit','Enroll','Subject','Prerequisites']
 
@@ -42,32 +42,59 @@ def main():
     nan = float('nan')
 
     
-        
+
+            
     print("*****")
     #s = pd.Series(courses_taken)
 
     #basically, go through, check if the student has the necessary prerequisites. If not, remove the course from the potential offerings
     dq = []
-    for i, row in df.iterrows():
-        flag = False
-        pre_req = str(row['Prerequisites'])
-        
-        pre_req = pre_req.strip('[')
-        pre_req = pre_req.strip(']')
-        pre_req = pre_req.replace('\'','')
-        pre_req = pre_req.replace(' ','')
 
-        pr = pre_req.split(',')
-        for x in pr:
-            if x not in pre_reqs and pd.notnull(x) == True:
-               # print(x)
-                flag = True
-        if flag == True:
-            df.drop(df.index[i],inplace=True)
+    #this, in theory, works. It removes the dict from the list if the student doesn't have the necessary prereqs
+    print(len(df_dict))
+    for i, pre in enumerate(d['Prerequisites'] for d in df_dict):
+        if type(pre) is not float:
+            #code to parse file correctly, might write to file for future reference
+            #also need to parse things like 'senior' and such
+            pre = pre.strip('[')
+            pre = pre.strip(']')
+            pre = pre.replace('\'','')
+            pre = pre.replace(' ','')
+            if pre not in pre_reqs:
+                dq.append(df_dict.pop(i))
 
     
 
-    print(df)
+    
+    print(len(df_dict))               
+    #print(dq)
+        
+    #for i, row in enumerate(dict_df):
+#        print(i,row)
+        
+        #flag = False
+        #pre_req = str(row['Prerequisites'])
+        
+        #pre_req = pre_req.strip('[')
+        #pre_req = pre_req.strip(']')
+        #pre_req = pre_req.replace('\'','')
+        #pre_req = pre_req.replace(' ','')
+
+#        pr = pre_req.split(',')
+#        print(i)
+        #dict_df.pop(i)
+        #for x in pr:
+            #if x not in pre_reqs and pd.notnull(x) == True:
+                
+                
+                # print(x)
+                #flag = True
+        #if flag == True:
+#            df.drop(df.index[i],inplace=True)
+
+    
+
+    #print(df)
     #main (or perhaps another method) will return a list of dictionaries. Each dictionary will be a course object. Maybe will transform into it's own object?
 
 
