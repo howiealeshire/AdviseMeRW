@@ -145,14 +145,14 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    
    p_iter = problem.getSolutionIter()
   # print(ppp)
-   #parseCSV.main(ppp)
 
-   
+   solution_list = []
    i = 0
-   while i <= 20:
-      print(next(p_iter,None))
+   while i <= 4:
+      solution_list.append(next(p_iter,None))
       i += 1
 
+   parseCSV.main(solution_list)
    #print(next(p_iter))
    #print(next(p_iter))
    #print(next(p_iter)

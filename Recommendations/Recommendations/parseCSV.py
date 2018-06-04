@@ -33,7 +33,7 @@ def main(preferences):
 #probably should use generators in this expression, so that way it's not ridiculously inefficient
 #{'day': 'm', 'num_courses': 2, 'time_prime': 200, 'category': 'WI', 'location': 'Sullivan', 'subject': 'Computer Science', 'professor': 'Dr. Howie
     days = []
-    for (i, day) in enumerate(d['day'] for d in preferences): 
+    for (i,day) in enumerate(d['day'] for d in preferences): 
         #print(i,num)
         days.append(day)
     num_courses = []
@@ -41,10 +41,19 @@ def main(preferences):
         #print(i,num)
         num_courses.append(num)
 
-    times = []
-    for (i, time) in enumerate(d['time_prime'] for d in preferences):
+    min_times = []
+    for (i, min_time) in enumerate(d['time_prime_min'] for d in preferences):
         #print(i,num)
-        times.append(time)
+        min_times.append(min_time)
+
+    max_times = []
+    for (i, max_time) in enumerate(d['time_prime_max'] for d in preferences):
+        #print(i,num)
+        max_times.append(max_time)
+
+
+
+    
 
     category = []
     for (i, cat) in enumerate(d['category'] for d in preferences):
@@ -110,14 +119,21 @@ def main(preferences):
         if prof not in  professors:
             df_dict.pop()
     for i, day in enumerate(d['Days'] for d in df_dict):
-        day = day.replace(" ","")
-        day = day.lower()
+        if type(day) is not float:
+            day = day.replace(" ","")
+            day = day.lower()
         
-        for x in day:
-            if x not in days:
-                df_dict.pop()
+            for x in day:
+                if x not in days:
+                    df_dict.pop()
     for i, time in enumerate(d['Time'] for d in df_dict):
-        time = time.split('-')
+        if type(time) is not float:
+            time = time.split('-')
+            time_from = time[0]
+            time_to = time[1]
+            for (x,y) in zip(time_from,time_to):
+                if (x,y) not in zip(min_times,max_times):
+                    df_dict.pop()
         
         #for x in day:
             
@@ -125,9 +141,9 @@ def main(preferences):
         if type(cat) is not float:
             cat = cat.strip('.')
             cat = cat.split('.')
-                for x in cat:
-                    if x not in category:
-                        df_dict.pop()
+            for x in cat:
+                if x not in category:
+                    df_dict.pop()
         
     for i, subj in enumerate(d['Subject'] for d in df_dict):
         subj = subj.title()
