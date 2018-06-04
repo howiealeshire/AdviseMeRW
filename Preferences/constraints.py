@@ -26,6 +26,8 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    time_to = int((time_to[0] + (.01 * time_to[1])) * 100)
    time_from = int((time_from[0] + (.01 * time_from[1])) * 100)
 
+   preferred_time_range = list(range(time_from,time_to))
+
    max_time = 2359
    min_time = 0
    time_range = list(range(min_time,max_time))
@@ -75,11 +77,12 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
       
 
 
-   problem.addVariable("time_prime", time_range)
+   problem.addVariable("time_prime_max", preferred_time_range)
+   problem.addVariable("time_prime_min", preferred_time_range)
    try:
       problem.addVariable("num_courses",course_range)
    except ValueError:
-      course_range = list(range(0,8)) #course range is hardcoded for now, will plug field from file later
+      course_range = list(range(0,8)) #course range is hardcoded for now (to prevent default value of []), will plug field from file later maybe
       problem.addVariable("num_courses",course_range)
       
    
@@ -90,6 +93,7 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    
    if prof != []:
       problem.addVariable("professor",list_profs)
+
    
    
  #  cat = ["WI","GLT","SI"]
@@ -126,27 +130,28 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 #   len_loc = len(loc)
 
 
-   problem.addConstraint(lambda day, time_prime,num_courses:
+   problem.addConstraint(lambda day, num_courses,time_prime_min,time_prime_max:
                                day in possible_days
-                               and time_from <= time_prime
-                               and time_to >= time_prime
+                               and time_from <= time_prime_min
+                               and time_to >= time_prime_max
                                and min_courses <= num_courses
                                and max_courses >= num_courses
                              ,
-                            ("day","time_prime","num_courses"))
+                            ("day","num_courses","time_prime_min","time_prime_max"))
 
 
 
 
    
-   ppp = problem.getSolutions()
-   parseCSV.main(ppp)
+   p_iter = problem.getSolutionIter()
+  # print(ppp)
+   #parseCSV.main(ppp)
 
    
-   
-   #while next(p_iter,None) != None:
-#      print(type(next(p_iter,None)))      
-#      i += 1
+   i = 0
+   while i <= 20:
+      print(next(p_iter,None))
+      i += 1
 
    #print(next(p_iter))
    #print(next(p_iter))
