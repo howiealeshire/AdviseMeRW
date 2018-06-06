@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0,'/Users/howard/AdviseMeRW/Schedule')
+sys.path.insert(0, '/Users/howard/AdviseMeRW/Schedule')
 import ScheduleApp as Schedule
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow,QWidget,QTableWidget,QTableWidgetItem,QPushButton,QPlainTextEdit, QDialog, QComboBox, QCheckBox,QTimeEdit,QSpinBox
@@ -64,9 +64,7 @@ class Preferences_Dialog(QDialog):
     
     @pyqtSlot()
     def apply_changes(self):
-        #self.sched = Schedule.Schedule_Dialog()
-        #self.close()
-        #self.sched.show()
+        
         
         #need to write categories, locations, professors, subjects
         category = self.get_category()
@@ -82,6 +80,8 @@ class Preferences_Dialog(QDialog):
             self.prof_list.addItem(professor)
         if subject not in self.get_all_from_list(self.subj_list):
             self.subj_list.addItem(subject)
+
+        
         
     @pyqtSlot()
     def remove_item(self,input_list):
@@ -106,13 +106,20 @@ class Preferences_Dialog(QDialog):
         time_interval = self.get_time_available()
         #subjects = self.get_subject()
         num_courses = self.get_num_course_interval()
-
-        
+    
+            
         
         
         p = constraints.main(locs,cats,profs,days,time_to,time_from,time_interval,subjects,num_courses)
 
         print(p)
+
+        self.sched = Schedule.Schedule_Dialog()
+        self.close()
+        self.sched.show()    
+
+ #       sched = Schedule.main()
+#        self.close()
     
     #method essentially taken from user @delnan from Stack Overflow: https://stackoverflow.com/questions/4629584/pyqt4-how-do-you-iterate-all-items-in-a-qlistwidget    
     def get_all_from_list(self,list_w):

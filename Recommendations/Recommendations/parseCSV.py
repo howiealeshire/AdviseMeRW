@@ -2,6 +2,8 @@
 import pandas as pd
 import math
 import numpy as np
+import sys
+
 
 #with this file, i guess we'll make it so that it is the one that doesn't require prereqs (although it currently parses them). Still considering organization.
 #perhaps once this file is parsed completely, we could pipe it to a class that takes the data, checks it against courses that have already been taken, eliminates
@@ -202,10 +204,10 @@ def main(preferences):
     #print(df)
     #main (or perhaps another method) will return a list of dictionaries. Each dictionary will be a course object. Maybe will transform into it's own object?
 
-
-
-
-
+    
+    #print(df_dict)
+ #   sched = Schedule.main()
+ #   sched.set_courses(df_dict)
 
 
 

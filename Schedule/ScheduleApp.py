@@ -1,6 +1,5 @@
 import sys
 sys.path.insert(0,'/Users/howard/AdviseMeRW/Preferences')
-import PreferencesApp as Preferences
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow,QWidget,QTableWidget,QTableWidgetItem,QPushButton,QPlainTextEdit, QDialog, QComboBox, QCheckBox,QTimeEdit
 from ScheduleDialog import Ui_Dialog
@@ -13,7 +12,7 @@ from operator import sub
 class Schedule_Dialog(QDialog):
     def __init__(self):
         super(Schedule_Dialog,self).__init__()
-        
+ #       self.courses = courses
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
 
@@ -33,8 +32,8 @@ class Schedule_Dialog(QDialog):
         
         
         
-        
-
+    
+    
     @pyqtSlot()
     def gt_prefs(self):
         self.pref = Preferences.Preferences_Dialog()
@@ -64,9 +63,9 @@ def main():
     app = QApplication(sys.argv)
     dialog = Schedule_Dialog()
     dialog.show()
-    print(dialog.preference_string)
-    print('\n')
-    print(dialog.emp)
+    #print(dialog.preference_string)
+   # print('\n')
+    #print(dialog.emp)
     sys.exit(app.exec_())
 
 
