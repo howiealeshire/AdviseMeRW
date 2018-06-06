@@ -110,11 +110,11 @@ class Preferences_Dialog(QDialog):
             
         
         
-        p = constraints.main(locs,cats,profs,days,time_to,time_from,time_interval,subjects,num_courses)
+        final_courses_list = constraints.main(locs,cats,profs,days,time_to,time_from,time_interval,subjects,num_courses)
+        #print(final_courses_list)
+            
 
-        print(p)
-
-        self.sched = Schedule.Schedule_Dialog()
+        self.sched = Schedule.Schedule_Dialog(final_courses_list)
         self.close()
         self.sched.show()    
 

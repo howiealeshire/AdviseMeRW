@@ -152,7 +152,9 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
       solution_list.append(next(p_iter,None))
       i += 1
 
-   parseCSV.main(solution_list)
+   final_course_list = parseCSV.main(solution_list)
+   #print(final_course_list)
+   return final_course_list
    #print(next(p_iter))
    #print(next(p_iter))
    #print(next(p_iter)

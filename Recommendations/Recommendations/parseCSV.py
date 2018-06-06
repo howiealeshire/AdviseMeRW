@@ -173,7 +173,10 @@ def main(preferences):
     
 
     
-    print(len(df_dict))               
+    print(len(df_dict))
+
+
+    return df_dict
     #print(dq)
         
     #for i, row in enumerate(dict_df):

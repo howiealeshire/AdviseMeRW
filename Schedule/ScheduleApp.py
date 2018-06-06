@@ -10,9 +10,14 @@ from operator import sub
 
 
 class Schedule_Dialog(QDialog):
-    def __init__(self):
+    def __init__(self,courses):
         super(Schedule_Dialog,self).__init__()
- #       self.courses = courses
+        
+
+        self.courses = courses
+        print(self.courses)
+        print("goodbye")
+ #      self.courses = courses
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
 
@@ -29,7 +34,6 @@ class Schedule_Dialog(QDialog):
         rec_btn.clicked.connect(self.gt_rec)
         make_btn.clicked.connect(self.mk_sched)
         lkahd_btn.clicked.connect(self.lkahd)
-        
         
         
     
@@ -63,6 +67,8 @@ def main():
     app = QApplication(sys.argv)
     dialog = Schedule_Dialog()
     dialog.show()
+    #print(dialog.courses)
+
     #print(dialog.preference_string)
    # print('\n')
     #print(dialog.emp)
