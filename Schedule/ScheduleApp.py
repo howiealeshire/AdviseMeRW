@@ -21,7 +21,7 @@ class Schedule_Dialog(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
 
-        tbl = self.ui.schedule_tbl
+        self.tbl = self.ui.schedule_tbl
         
  #       self.preferences = (self.preference_string,)
         
@@ -34,6 +34,25 @@ class Schedule_Dialog(QDialog):
         rec_btn.clicked.connect(self.gt_rec)
         make_btn.clicked.connect(self.mk_sched)
         lkahd_btn.clicked.connect(self.lkahd)
+
+
+        
+        unparsed_time = self.courses[1]['Time']
+        unparsed_time = unparsed_time.split('-')
+        p_time_from = int(unparsed_time[0])
+        p_time_to = int(unparsed_time[1])
+        
+        i_row = int('0800')
+        i = 0
+        while i_row < p_time_from:
+            i_row += 100
+            i += 1
+        print(i)
+        print(i_row)
+        print(p_time_from)
+        self.tbl.setItem(i,0, QTableWidgetItem(self.courses[1]['Title']))
+        
+
         
         
     
@@ -66,6 +85,22 @@ class Schedule_Dialog(QDialog):
 def main():
     app = QApplication(sys.argv)
     dialog = Schedule_Dialog()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     dialog.show()
     #print(dialog.courses)
 
