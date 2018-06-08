@@ -151,8 +151,17 @@ def main(preferences):
         subj = subj.title()
         if subj not in subjects:
             df_dict.pop()
-            
 
+
+    new_time = []
+    new_dict = []
+    for i, time in enumerate(d['Time'] for d in df_dict):
+        if type(time) is not float:
+            time = time.strip()
+            time = time.split('-')
+            if time not in new_time:
+                new_dict.append(df_dict[i])
+                new_time.append(time)
     
 
 
@@ -172,11 +181,13 @@ def main(preferences):
 
     
 
-    
+    print('len dict')
     print(len(df_dict))
+    
+    print('len new_Dict')
+    print(len(new_time))
 
-
-    return df_dict
+    return new_dict
     #print(dq)
         
     #for i, row in enumerate(dict_df):
