@@ -35,25 +35,42 @@ class Schedule_Dialog(QDialog):
         make_btn.clicked.connect(self.mk_sched)
         lkahd_btn.clicked.connect(self.lkahd)
 
-
-        
-        unparsed_time = self.courses[1]['Time']
-        unparsed_time = unparsed_time.split('-')
-        p_time_from = int(unparsed_time[0])
-        p_time_to = int(unparsed_time[1])
-        
-        i_row = int('0800')
         i = 0
-        while i_row < p_time_from:
-            i_row += 100
-            i += 1
-        print(i)
-        print(i_row)
-        print(p_time_from)
-        self.tbl.setItem(i,0, QTableWidgetItem(self.courses[1]['Title']))
-        
+        while i < 5:
 
-        
+            #handle time
+            unparsed_time = self.courses[i]['Time']
+            unparsed_time = unparsed_time.split('-')
+            p_time_from = int(unparsed_time[0])
+            p_time_to = int(unparsed_time[1])
+            
+            i_row = int('0800')
+            j = 0
+            while i_row < p_time_from:
+                i_row += 100
+                j += 1
+            print(j)
+            print(i_row)
+            print(p_time_from)
+
+            #handle days
+            u_days = self.courses[i]['Days']
+            for day in u_days:
+                print('^^^^')
+                print(day)
+                print('^^^^')
+                if day == 'M':
+                    self.tbl.setItem(j,0, QTableWidgetItem(self.courses[i]['Title']))
+                if day == 'T':
+                    self.tbl.setItem(j,1, QTableWidgetItem(self.courses[i]['Title']))
+                if day == 'W':
+                    self.tbl.setItem(j,2, QTableWidgetItem(self.courses[i]['Title']))
+                if day == 'R':
+                    self.tbl.setItem(j,3, QTableWidgetItem(self.courses[i]['Title']))
+                if day == 'F':
+                    self.tbl.setItem(j,4, QTableWidgetItem(self.courses[i]['Title']))
+            
+            i += 1
         
     
     
