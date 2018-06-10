@@ -155,6 +155,8 @@ def main(preferences):
 
     new_time = []
     new_dict = []
+    
+    # this is to prevent duplicate times 
     for i, time in enumerate(d['Time'] for d in df_dict):
         if type(time) is not float:
             time = time.strip()
@@ -164,7 +166,7 @@ def main(preferences):
                 new_time.append(time)
     
 
-
+    
 
 
 

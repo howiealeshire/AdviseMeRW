@@ -7,6 +7,7 @@ from dialog import Ui_Dialog
 from PyQt5.QtCore import pyqtSlot
 from operator import sub
 import constraints
+import pandas as pd
 
 
 class Preferences_Dialog(QDialog):
@@ -57,6 +58,43 @@ class Preferences_Dialog(QDialog):
         self.remove_prof_btn.clicked.connect(lambda: self.remove_item(self.prof_list))
         self.remove_subj_btn.clicked.connect(lambda: self.remove_item(self.subj_list))
 
+
+        self.df=pd.read_csv('/Users/howard/AdviseMeRW/Recommendations/Recommendations/newFile.csv')
+        self.df_dict = self.df.to_dict('records')
+
+        self.cat_comb = self.ui.category_comb
+        self.loc_comb = self.ui.location_comb
+        self.prof_comb = self.ui.professor_comb
+        self.subj_comb = self.ui.subject_comb
+
+        # self.cat_list.addItems(self.df_dict['Categories'] for d in self.df_dict.strip('.').split('.'))
+
+        set_cat = set()        
+        for i, cat in enumerate(d['Categories'] for d in self.df_dict):
+            if cat != 'none':
+                cat = cat.strip('.')
+                cat = cat.split('.')
+                set_cat.update(cat)
+        self.cat_comb.addItems(set_cat)
+
+
+
+        set_loc = set()
+
+        
+        for i, loc in enumerate(d['Location'] for d in self.df_dict):
+            if loc != 'none':
+                set_loc.update(loc)
+
+                        
+        self.loc_comb.addItems(set_loc)
+        
+                                      
+
+        
+        
+        
+        
 
 
 
