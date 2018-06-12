@@ -132,6 +132,8 @@ def main(preferences):
 
     test_it = 0
 
+    '''pretty sure prof also works too '''
+
     copy_df_dict = copy.deepcopy(df_dict)
     for d in df_dict:
         for k,v in d.items():
@@ -143,6 +145,8 @@ def main(preferences):
                     copy_df_dict.remove(d)
                            
     print(copy_df_dict)
+
+    
     '''
     for i, prof in enumerate(d['Instructor'] for d in df_dict):
         if type(prof) != float:
@@ -165,7 +169,34 @@ def main(preferences):
             
 
 
+    ccopy_df_dict = copy.deepcopy(copy_df_dict)
+    for d in copy_df_dict:
+        for k,v in d.items():
+            if k == 'Time':
+                if type(v) != float and v != 'nan':
+                    v = v.split('-')
+                    time_from = v[0]
+                    time_to = v[1]
+                
+                    for (x,y) in zip(time_from,time_to):
+                        if (x,y) not in zip(min_times,max_times):
+                            try:
+                                ccopy_df_dict.remove(d)
+                            except ValueError:
+                                pass
+                elif v == 'nan':
+                    ccopy_df_dict.remove(d)
+                else:
+                    ccopy_df_dict.remove(d)
+    print(ccopy_df_dict)
+ 
+    
 
+                
+    
+
+
+    
 
     
     for i, day in enumerate(d['Days'] for d in df_dict):
@@ -176,6 +207,8 @@ def main(preferences):
             for x in day:
                 if x not in days:
                     df_dict.pop()
+
+    '''
     for i, time in enumerate(d['Time'] for d in df_dict):
         if type(time) is not float:
             time = time.split('-')
@@ -184,6 +217,7 @@ def main(preferences):
             for (x,y) in zip(time_from,time_to):
                 if (x,y) not in zip(min_times,max_times):
                     df_dict.pop()
+    '''
         
         #for x in day:
             
