@@ -65,7 +65,7 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
    '''
 
 
-   list_profs = ["Dr. Howie", "Dr. Aleshire", "Dr. Howard"]
+   list_profs = prof
 
    
 
@@ -86,7 +86,6 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
       problem.addVariable("num_courses",course_range)
       
    
-   loc_possible = ["Computer Science", "Mathematics"]
 
    if loc != []:
       problem.addVariable("location",loc)
@@ -118,7 +117,7 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
 
 
-   print(subjects)
+   #print(subjects)
 
    #perhaps something should be done about the ValueError that occurs when the range of courses is between 0 and 0
    #try except later, perhaps
@@ -152,6 +151,9 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
       solution_list.append(next(p_iter,None))
       i += 1
 
+   print("solution list: ") 
+   print(solution_list)
+   print("end solution list ")
    final_course_list = parseCSV.main(solution_list)
    #print(final_course_list)
    return final_course_list

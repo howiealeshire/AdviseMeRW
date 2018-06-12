@@ -83,11 +83,37 @@ class Preferences_Dialog(QDialog):
 
         
         for i, loc in enumerate(d['Location'] for d in self.df_dict):
-            if loc != 'none':
-                set_loc.update(loc)
+            if loc != 'none' and type(loc) != float:
+                loc = loc.strip()
+                loc = loc.split(' ')
+                loc.pop(1)
+                loc = loc[0]
+                set_loc.add(loc)
 
                         
         self.loc_comb.addItems(set_loc)
+
+        set_subj = set()
+        for i, subj in enumerate(d['Subject'] for d in self.df_dict):
+            if subj != 'none' and type(loc) != float:
+                subj = subj.strip()
+                subj = subj.title()
+
+                set_subj.add(subj)
+
+        self.subj_comb.addItems(set_subj)
+        
+        set_prof = set()
+        for i, prof in enumerate(d['Instructor'] for d in self.df_dict):
+            if prof != 'none' and type(prof) != float:
+                prof = prof.strip()
+                set_prof.add(prof)
+
+        self.prof_comb.addItems(set_prof)
+    
+
+        
+
         
                                       
 
