@@ -1,18 +1,11 @@
-#an idea i have is to either populate a new pandas dataframe incrementally. or, if that doesn't work, a list of dictionaries instead
 import pandas as pd
 import math
 import numpy as np
 import sys
+import copy
 
 
-#with this file, i guess we'll make it so that it is the one that doesn't require prereqs (although it currently parses them). Still considering organization.
-#perhaps once this file is parsed completely, we could pipe it to a class that takes the data, checks it against courses that have already been taken, eliminates
-#courses that can't be taken bc prereqs haven't been taken yet, then pipe this final output into constraints.py (the current class, parseCSV, will have already taken care of formatting issues and whatnot)
 
-#credit goes to StackOverflow user @SunilT for pandas code (not listed) to keep only certain columns from csv file:
-# https://stackoverflow.com/questions/7588934/deleting-columns-in-a-csv-with-python
-
-#later replace hardcoded with user/admin input file
 
 
 def read_courses_taken():
@@ -72,11 +65,20 @@ def main(preferences):
         subjects.append(subj)
         #print(i,num)
 
-    professors = []
+    professors = set()
     for (i,prof) in enumerate(d['professor'] for d in preferences):
-        professors.append(prof)
-        #print(i,num)
+        if type(prof) != float:
+            prof = prof.rstrip().replace(' ','')
+            professors.add(prof)
+    print("ya know")
+    for p in professors:
+        print(p)
+    print("yeah")
     
+        #print(i,num)
+    print("professor list begin: ")
+    print(professors)
+    print("professor list end: ")
     #print(preferences)
     pre_reqs = read_courses_taken()
     for p in pre_reqs:
@@ -101,6 +103,10 @@ def main(preferences):
 
     #this, in theory, works. It removes the dict from the list if the student doesn't have the necessary prereqs
     print(len(df_dict))
+    test_it = 0
+
+    ''' pretty sure pre works '''
+    
     for i, pre in enumerate(d['Prerequisites'] for d in df_dict):
          if type(pre) is not float:
             #code to parse file correctly, might write to file for future reference
@@ -109,17 +115,59 @@ def main(preferences):
             pre = pre.strip(']')
             pre = pre.replace('\'','')
             pre = pre.replace(' ','')
+            if test_it == 0:
+                print("pre: ")
+                print(pre)
+                print("end pre.")
+                test_it += 1
             if pre not in pre_reqs:
                 dq.append(df_dict.pop(i))
+
+    
 
     #for i, course in enumerate(d['Course'] for d in df_dict):
         #get rid of section number from course, might later parse into its own category
 #        course = course[:-3]
 #        if course not in  
-        
+
+    test_it = 0
+
+    copy_df_dict = copy.deepcopy(df_dict)
+    for d in df_dict:
+        for k,v in d.items():
+            if k == 'Instructor':
+                if type(v) != float:
+                    v = v.rstrip().replace(' ','')
+
+                if v not in professors:
+                    copy_df_dict.remove(d)
+                           
+    print(copy_df_dict)
+    '''
     for i, prof in enumerate(d['Instructor'] for d in df_dict):
-        if prof not in  professors:
-            df_dict.pop()
+        if type(prof) != float:
+            prof = prof.rstrip().replace(' ','')
+            if prof not in  professors:
+                #print("profs not in professors: ")
+                #print(prof)
+                if test_it == 0:
+                    print("pre2: ")
+                    print(prof)
+                    print("end pre2.")
+                    test_it += 1
+                dq.append(df_dict['Instructor'].remove(prof))
+            else:
+                print("strange profs who are in list: ")
+                print(prof)
+                print("end strange profs who are in list and who shouldn't be. ")
+    '''
+                
+            
+
+
+
+
+    
     for i, day in enumerate(d['Days'] for d in df_dict):
         if type(day) is not float:
             day = day.replace(" ","")
@@ -150,12 +198,15 @@ def main(preferences):
     for i, subj in enumerate(d['Subject'] for d in df_dict):
         subj = subj.title()
         if subj not in subjects:
-            df_dict.pop()
+            df_dict.pop(i)
 
 
     new_time = []
     new_dict = []
-    
+
+    print("start df_dict")
+    print(df_dict)
+    print("end df_dict")
     # this is to prevent duplicate times 
     for i, time in enumerate(d['Time'] for d in df_dict):
         if type(time) is not float:
@@ -167,7 +218,7 @@ def main(preferences):
     
 
     
-
+    
     
 
 

@@ -1,3 +1,5 @@
+#~ = marked for deletion, just checking if code still works
+
 import sys
 from constraint import *
 sys.path.insert(0, '/Users/howard/AdviseMeRW/Recommendations/Recommendations')
@@ -28,18 +30,13 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
    preferred_time_range = list(range(time_from,time_to))
 
-   max_time = 2359
-   min_time = 0
-   time_range = list(range(min_time,max_time))
    
    problem = Problem()
    week_days = ['m','t','w','r','f']
    possible_days = []
-   # might refractor this section, putting it into the PreferencesApp.py module,
-   # that way this doesn't have to do all the parsing, cleaner and whatnot 
-   #if days[0] == True:
-   #   problem.addVariable("all_days",week_days)
-   #else:
+
+
+
    if days[1] == True:
       possible_days += 'm'
    if days[2] == True:
@@ -50,23 +47,6 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
       possible_days += 'r'
    if days[5] == True:
       possible_days += 'f'
-   
-   '''
-
-   #might be unnecessary, this section
-   if possible_days == []:
-      #this try except is so it can catch the duplicate variable exception. May check the constraint library and see if it has a function for this
-      try:
-         problem.addVariable("all_days",week_days)
-      except ValueError:
-         possible_days = week_days
-         problem.addVariable("all_days",week_days)
-   
-   '''
-
-
-   list_profs = prof
-
    
 
    try:
@@ -91,16 +71,14 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
       problem.addVariable("location",loc)
    
    if prof != []:
-      problem.addVariable("professor",list_profs)
+      problem.addVariable("professor",prof)
 
    
    
- #  cat = ["WI","GLT","SI"]
 
    if cat != []:
       problem.addVariable("category",cat)
 
-  # subjects = ["Computer Science", "Mathematics"] 
 
    if subjects != []:
       problem.addVariable("subject",subjects)
@@ -108,25 +86,6 @@ def main(loc,cat,prof,days,time_to,time_from,time_interval,subjects,num_courses)
 
    
    
-   prof_prime = prof 
-   subj_prime = subjects
-   cat_prime = cat
-   loc_prime = loc
-   
-   
-
-
-
-   #print(subjects)
-
-   #perhaps something should be done about the ValueError that occurs when the range of courses is between 0 and 0
-   #try except later, perhaps
-
- #  i = 0
-#   len_prof = len(prof)
-#   len_subj = len(subj)
-#   len_cat = len(cat)
-#   len_loc = len(loc)
 
 
    problem.addConstraint(lambda day, num_courses,time_prime_min,time_prime_max:
