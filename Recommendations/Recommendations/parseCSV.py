@@ -170,6 +170,7 @@ def main(preferences):
 
 
     ccopy_df_dict = copy.deepcopy(copy_df_dict)
+    '''
     for d in copy_df_dict:
         for k,v in d.items():
             if k == 'Time':
@@ -189,6 +190,29 @@ def main(preferences):
                 else:
                     ccopy_df_dict.remove(d)
     print(ccopy_df_dict)
+    '''
+
+    #days
+    cccopy_df_dict = copy.deepcopy(ccopy_df_dict)
+    for d in ccopy_df_dict:
+        for k,v in d.items():
+            if k == 'Days':
+                if type(v) != float and v != 'nan':
+                    v = v.replace(" ","")
+                    v = v.lower()
+                    if v[1] != days[0]:
+                        try:
+                            cccopy_df_dict.remove(d)
+                        except ValueError:
+                            pass
+                            
+ 
+                
+                elif v == 'nan':
+                    cccopy_df_dict.remove(d)
+                else:
+                    cccopy_df_dict.remove(d)
+    print(cccopy_df_dict)
  
     
 
@@ -196,7 +220,7 @@ def main(preferences):
     
 
 
-    
+    '''
 
     
     for i, day in enumerate(d['Days'] for d in df_dict):
@@ -207,6 +231,8 @@ def main(preferences):
             for x in day:
                 if x not in days:
                     df_dict.pop()
+
+    '''
 
     '''
     for i, time in enumerate(d['Time'] for d in df_dict):
@@ -238,9 +264,10 @@ def main(preferences):
     new_time = []
     new_dict = []
 
-    print("start df_dict")
-    print(df_dict)
-    print("end df_dict")
+    #print("start df_dict")
+    #print(df_dict)
+   # print("end df_dict")
+   
     # this is to prevent duplicate times 
     for i, time in enumerate(d['Time'] for d in df_dict):
         if type(time) is not float:

@@ -15,7 +15,7 @@ class Schedule_Dialog(QDialog):
         
 
         self.courses = courses
-        print(self.courses)
+        #print(self.courses)
         print("goodbye")
  #      self.courses = courses
         self.ui = Ui_Dialog()
