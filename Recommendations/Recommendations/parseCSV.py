@@ -39,13 +39,11 @@ def main(preferences):
     min_times = []
     for (i, min_time) in enumerate(d['time_prime_min'] for d in preferences):
         #print(i,num)
-        min_time = float(min_time)
         min_times.append(min_time)
 
     max_times = []
     for (i, max_time) in enumerate(d['time_prime_max'] for d in preferences):
         #print(i,num)
-        max_time = float(max_time)
         max_times.append(max_time)
 
 
@@ -107,8 +105,10 @@ def main(preferences):
     print(len(df_dict))
     test_it = 0
 
+    df_dict_copy = copy.deepcopy(df_dict)
+
     ''' pretty sure pre works '''
-    
+    '''
     for i, pre in enumerate(d['Prerequisites'] for d in df_dict):
          if type(pre) is not float:
             #code to parse file correctly, might write to file for future reference
@@ -123,21 +123,31 @@ def main(preferences):
                 print("end pre.")
                 test_it += 1
             if pre not in pre_reqs:
-                dq.append(df_dict.pop(i))
-
+                df_dict_copy.remove(pre)
+    '''
     
+    for d in df_dict:
+        for k,v in d.items():
+            if k == 'Prerequisites':
+                if type(v) != float and v != 'nan':
+                    v = v.strip('[')
+                    v = v.strip(']')
+                    v = v.replace('\'','')
+                    v = v.replace(' ','')
+                    if v not in pre_reqs:
+                        df_dict_copy.remove(d)
+                    
 
     #for i, course in enumerate(d['Course'] for d in df_dict):
         #get rid of section number from course, might later parse into its own category
 #        course = course[:-3]
 #        if course not in  
 
-    test_it = 0
 
     '''pretty sure prof also works too '''
 
-    copy_df_dict = copy.deepcopy(df_dict)
-    for d in df_dict:
+    copy_df_dict = copy.deepcopy(df_dict_copy)
+    for d in df_dict_copy:
         for k,v in d.items():
             if k == 'Instructor':
                 if type(v) != float:
@@ -145,34 +155,22 @@ def main(preferences):
 
                 if v not in professors:
                     copy_df_dict.remove(d)
+           # if k == 'Time':
+#                if type(v) == float or v == 'nan':
+#                    try:
+#                        copy_df_dict.remove(d)
+#                    except ValueError:
+#                        pass
                            
     print(copy_df_dict)
 
     
-    
-    for i, prof in enumerate(d['Instructor'] for d in df_dict):
-        if type(prof) != float:
-            prof = prof.rstrip().replace(' ','')
-            if prof not in  professors:
-                #print("profs not in professors: ")
-                #print(prof)
-                if test_it == 0:
-                    print("pre2: ")
-                    print(prof)
-                    print("end pre2.")
-                    test_it += 1
-                dq.append(df_dict['Instructor'].remove(prof))
-            else:
-                print("strange profs who are in list: ")
-                print(prof)
-                print("end strange profs who are in list and who shouldn't be. ")
-    
                 
-            
+    
 
 
     ccopy_df_dict = copy.deepcopy(copy_df_dict)
-    
+    '''
     for d in copy_df_dict:
         for k,v in d.items():
             if k == 'Time':
@@ -184,12 +182,8 @@ def main(preferences):
                     for (x,y) in zip(time_from,time_to):
                         x = float(x)
                         y = float(y)
-                        if (x,y) not in zip(min_times,max_times) or x < min_time: and y > max_time:
+                        if (x,y) not in zip(min_times,max_times) or x < min_time or y > max_time:
                             try:
-                                time_from_f = float(time_from)
-                                time_to_f = float(time_to)
-                                x_f = float(x)
-                                
                                 ccopy_df_dict.remove(d)
                             except ValueError:
                                 pass
@@ -202,7 +196,9 @@ def main(preferences):
                         else:
                             ccopy_df_dict.remove(d)
     print(ccopy_df_dict)
-    
+    '''
+
+    '''
 
     #days
     cccopy_df_dict = copy.deepcopy(ccopy_df_dict)
@@ -226,7 +222,7 @@ def main(preferences):
                     cccopy_df_dict.remove(d)
     print(cccopy_df_dict)
  
-    
+    '''
 
                 
     
@@ -260,7 +256,7 @@ def main(preferences):
 
 
 
-
+    '''
     ccccopy_df_dict = copy.deepcopy(cccopy_df_dict)
     for d in cccopy_df_dict:
         for k,v in d.items():
@@ -280,8 +276,9 @@ def main(preferences):
                 else:
                     ccccopy_df_dict.remove(d)
     print(ccccopy_df_dict)
+    '''
 
-
+    '''
 
     cccccopy_df_dict = copy.deepcopy(ccccopy_df_dict)
     for d in ccccopy_df_dict:
@@ -301,19 +298,19 @@ def main(preferences):
     print(cccccopy_df_dict)
 
 
-
+    '''
     
-        
-'''            
-    for i, cat in enumerate(d['Categories'] for d in df_dict):
-        if type(cat) is not float:
-            cat = cat.strip('.')
-            cat = cat.split('.')
-            for x in cat:
-                if x not in category:
-                    df_dict.pop()
+            
+    '''            
+        for i, cat in enumerate(d['Categories'] for d in df_dict):
+            if type(cat) is not float:
+                cat = cat.strip('.')
+                cat = cat.split('.')
+                for x in cat:
+                    if x not in category:
+                        df_dict.pop()
 
-'''
+    '''
 
 
 
@@ -325,28 +322,28 @@ def main(preferences):
             df_dict.pop(i)
     '''
 
-    
-'''
-    new_time = []
-    new_dict = []
-
-    #print("start df_dict")
-    #print(df_dict)
-   # print("end df_dict")
-   
-    # this is to prevent duplicate times 
-    for i, time in enumerate(d['Time'] for d in df_dict):
-        if type(time) is not float:
-            time = time.strip()
-            time = time.split('-')
-            if time not in new_time:
-                new_dict.append(df_dict[i])
-                new_time.append(time)
-    
-
-    
+        
     '''
-    
+        new_time = []
+        new_dict = []
+
+        #print("start df_dict")
+        #print(df_dict)
+       # print("end df_dict")
+       
+        # this is to prevent duplicate times 
+        for i, time in enumerate(d['Time'] for d in df_dict):
+            if type(time) is not float:
+                time = time.strip()
+                time = time.split('-')
+                if time not in new_time:
+                    new_dict.append(df_dict[i])
+                    new_time.append(time)
+        
+
+        
+    '''
+        
 
 
 
@@ -360,14 +357,17 @@ def main(preferences):
     
 
     
-
+    '''
     print('len dict')
     print(len(df_dict))
     
     print('len new_Dict')
     print(len(new_time))
+    '''
 
-    return new_dict
+ #   return cccccopy_df_dict
+    
+    return copy_df_dict
     #print(dq)
         
     #for i, row in enumerate(dict_df):

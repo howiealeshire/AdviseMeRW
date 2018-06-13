@@ -36,12 +36,20 @@ class Schedule_Dialog(QDialog):
         lkahd_btn.clicked.connect(self.lkahd)
 
         i = 0
-        while i < 5:
+        while i < 1:
 
             #handle time
-            unparsed_time = self.courses[i]['Time']
+            unparsed_time = str(self.courses[i]['Time'])
             unparsed_time = unparsed_time.split('-')
-            p_time_from = int(unparsed_time[0])
+        
+            if unparsed_time[0] != 'nan':
+                p_time_from = int(unparsed_time[0])
+            else:
+                p_time_from = int('1100')
+            if unparsed_time[1] != 'nan':
+                p_time_to = int(unparsed_time[1])
+            else:
+                p_time_to = int('1200')
             p_time_to = int(unparsed_time[1])
             
             i_row = int('0800')

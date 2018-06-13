@@ -29,7 +29,7 @@ class Root_Dialog(QDialog):
 
     @pyqtSlot()
     def goto_preferences(self):
-        self.pref = Preferences.Dialog()
+        self.pref = Preferences.Preferences_Dialog()
         self.pref.show()
         self.close()
     @pyqtSlot()
