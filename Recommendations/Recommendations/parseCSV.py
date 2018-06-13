@@ -170,7 +170,7 @@ def main(preferences):
 
 
     ccopy_df_dict = copy.deepcopy(copy_df_dict)
-    '''
+    
     for d in copy_df_dict:
         for k,v in d.items():
             if k == 'Time':
@@ -190,7 +190,7 @@ def main(preferences):
                 else:
                     ccopy_df_dict.remove(d)
     print(ccopy_df_dict)
-    '''
+    
 
     #days
     cccopy_df_dict = copy.deepcopy(ccopy_df_dict)
@@ -244,9 +244,55 @@ def main(preferences):
                 if (x,y) not in zip(min_times,max_times):
                     df_dict.pop()
     '''
+
+
+
+
+
+    ccccopy_df_dict = copy.deepcopy(cccopy_df_dict)
+    for d in cccopy_df_dict:
+        for k,v in d.items():
+            if k == 'Categories':
+                if type(v) != float and v != 'nan':
+                    v = v.replace(" ","")
+                    v = v.strip('.')
+                    v = v.split('.')
+                    for x in v:
+                        if x not in category:
+                            try:
+                                ccccopy_df_dict.remove(d)
+                            except ValueError:
+                                pass
+                elif v == 'nan':
+                    ccccopy_df_dict.remove(d)
+                else:
+                    ccccopy_df_dict.remove(d)
+    print(ccccopy_df_dict)
+
+
+
+    cccccopy_df_dict = copy.deepcopy(ccccopy_df_dict)
+    for d in ccccopy_df_dict:
+        for k,v in d.items():
+            if k == 'Subjects':
+                if type(v) != float and v != 'nan':
+                    for x in v:
+                        if x not in category:
+                            try:
+                                cccccopy_df_dict.remove(d)
+                            except ValueError:
+                                pass
+                elif v == 'nan':
+                    cccccopy_df_dict.remove(d)
+                else:
+                    cccccopy_df_dict.remove(d)
+    print(cccccopy_df_dict)
+
+
+
+    
         
-        #for x in day:
-            
+'''            
     for i, cat in enumerate(d['Categories'] for d in df_dict):
         if type(cat) is not float:
             cat = cat.strip('.')
@@ -254,13 +300,21 @@ def main(preferences):
             for x in cat:
                 if x not in category:
                     df_dict.pop()
-        
+
+'''
+
+
+
+
+    '''
     for i, subj in enumerate(d['Subject'] for d in df_dict):
         subj = subj.title()
         if subj not in subjects:
             df_dict.pop(i)
+    '''
 
-
+    
+'''
     new_time = []
     new_dict = []
 
@@ -279,7 +333,7 @@ def main(preferences):
     
 
     
-    
+    '''
     
 
 
