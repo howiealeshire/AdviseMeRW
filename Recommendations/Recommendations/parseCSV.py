@@ -39,11 +39,13 @@ def main(preferences):
     min_times = []
     for (i, min_time) in enumerate(d['time_prime_min'] for d in preferences):
         #print(i,num)
+        min_time = float(min_time)
         min_times.append(min_time)
 
     max_times = []
     for (i, max_time) in enumerate(d['time_prime_max'] for d in preferences):
         #print(i,num)
+        max_time = float(max_time)
         max_times.append(max_time)
 
 
@@ -147,7 +149,7 @@ def main(preferences):
     print(copy_df_dict)
 
     
-    '''
+    
     for i, prof in enumerate(d['Instructor'] for d in df_dict):
         if type(prof) != float:
             prof = prof.rstrip().replace(' ','')
@@ -164,7 +166,7 @@ def main(preferences):
                 print("strange profs who are in list: ")
                 print(prof)
                 print("end strange profs who are in list and who shouldn't be. ")
-    '''
+    
                 
             
 
@@ -180,15 +182,25 @@ def main(preferences):
                     time_to = v[1]
                 
                     for (x,y) in zip(time_from,time_to):
-                        if (x,y) not in zip(min_times,max_times):
+                        x = float(x)
+                        y = float(y)
+                        if (x,y) not in zip(min_times,max_times) or x < min_time: and y > max_time:
                             try:
+                                time_from_f = float(time_from)
+                                time_to_f = float(time_to)
+                                x_f = float(x)
+                                
                                 ccopy_df_dict.remove(d)
                             except ValueError:
                                 pass
-                elif v == 'nan':
-                    ccopy_df_dict.remove(d)
-                else:
-                    ccopy_df_dict.remove(d)
+                        
+                        elif v == 'nan':
+                            ccopy_df_dict.remove(d)
+                        elif x >= min_time or y <= max_time:
+                            break
+
+                        else:
+                            ccopy_df_dict.remove(d)
     print(ccopy_df_dict)
     
 
